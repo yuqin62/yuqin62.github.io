@@ -45,8 +45,8 @@
         }
         .divider {
             border-left: 2px dashed black; /* Creates the vertical line */
-            height: 80%; /* Ensures the line matches the image height */
-            margin: 20px; /* Adds some spacing around the line */
+            height: 100%; /* Ensures the line matches the image height */
+            margin: 0 20px; /* Adds some spacing around the line */
         }
     </style>
 </head>
@@ -127,12 +127,27 @@
         </figure>
     </div>
 
-    <p>
-        
-        <p align="middle">For the "emir" image, I also used SSIM from skimage.metrics to make the alignment look better. The SSIM score 
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/emir1.jpg" alt="Description of cathedral">
+            <figcaption>Output of Naive Approach</figcaption>
+        </figure>
+        <div class="divider"></div>
+        <figure>
+            <img class="image-large" src="media/emir2.jpg" alt="Description of tobolsk">
+            <figcaption>Using Pyramid: G (-10, 0) R (6, -16)</figcaption>
+        </figure>
+    </div>
+      
+    <p align="middle">For the "emir" image, I also used SSIM from skimage.metrics to make the alignment look better. The SSIM score 
             is computed as the higher the better.
-        </p>
-        monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9
+    </p>
+        
+
+</body>
+</html>
+
+        <!--monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9
         cathedral Displacement: dx = -1, dy = 1 Displacement: dx = -1, dy = 7
         tobolsk Displacement: dx = 2, dy = 3 Displacement: dx = 3, dy = 6
 
@@ -147,7 +162,4 @@
         sculpture Displacement: dx = 22, dy = 22 Displacement: dx = -18, dy = 30
         emir Displacement: dx = 14, dy = -6 Displacement: dx = 30, dy = 30
 
-        scene Displacement: dx = -2, dy = 0 isplacement: dx = -2, dy = -2
-    </p>
-</body>
-</html>
+        scene Displacement: dx = -2, dy = 0 isplacement: dx = -2, dy = -2-->
