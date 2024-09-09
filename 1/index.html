@@ -20,6 +20,18 @@
         .center {
             text-align: center;
         }
+        .image-small {
+            width: 20%;  /* Set a specific width for small image */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .image-medium {
+            width: 30%;  /* Set a specific width for medium image */
+            height: auto;
+        }
+        .image-large {
+            width: 40%;  /* Set a specific width for large image */
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -28,7 +40,11 @@
     <h1 align="middle">Colorizing the Prokudin-Gorskii photo collection</h1>
     <h2 align="middle">Yuqin Jiao</h2>
     <p>
-        <img src="media/monastery.jpg" alt="Description of monastery">
+        <div class="image-row">
+            <img class="image-small" src="media/cathedral.jpg" alt="Description of cathedral">
+            <img class="image-small" src="media/tobolsk.jpg" alt="Description of tobolsk">
+            <img class="image-small" src="media/monastery.jpg" alt="Description of monastery">
+        </div>        
         <p align="middle">monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9</p>
         monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9
         cathedral Displacement: dx = -1, dy = 1 Displacement: dx = -1, dy = 7
