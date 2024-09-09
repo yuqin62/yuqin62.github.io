@@ -39,6 +39,10 @@
             width: 40%;
             height: auto;
         }
+        figcaption, p {
+            text-align: center; /* Center the caption */
+            margin-top: 5px; /* Space between image and caption */
+        }
     </style>
 </head>
 <body>
@@ -50,6 +54,26 @@
     <br>
     <br>
     <h2 align="left">Naive Approach</h2>
+    <p>
+        For the naive approach, I used L2 norm to compute the difference between two images, evaluated it as score, 
+        and used for loops to find the smallest score, which is the best displacement. Naive approach is ok for the
+        jpg images, but not good for the tif images, because the jpg images are small.
+
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium" src="media/cathedral.jpg" alt="Description of cathedral">
+            <figcaption>Displacement: G (-1, 1); R (-1, 7)</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium" src="media/tobolsk.jpg" alt="Description of tobolsk">
+            <figcaption>Displacement: G (2, 3); R (3, 6)</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium" src="media/monastery.jpg" alt="Description of monastery">
+            <figcaption>Displacement: G (0, -6); R (1, 9)</figcaption>
+        </figure>
+    </div>
     <p>
         <div class="image-row">
             <img class="image-medium" src="media/cathedral.jpg" alt="Description of cathedral">
