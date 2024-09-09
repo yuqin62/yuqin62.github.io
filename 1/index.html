@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Project 1</title>
+    <!--<title>Project 1</title>-->
     <style>
         body {
-            padding: 100px;
             width: 1000px;
             margin: auto;
             text-align: left;
@@ -77,9 +76,11 @@
 
     <h2 align="left">Image Pyramid</h2>
     <p>
-        To implement image pyramid, I used L2 norm to compute the difference between two images, evaluated it as score, 
-        and used for loops to find the smallest score, which is the best displacement. Naive approach is ok for the
-        jpg images, but not good for the tif images, because the jpg images are small.
+        To implement image pyramid, I used skimage.transform.rescale to first shrink the resolution of image channel, 
+        then if the rescaled channel is over 300x300 resolution, I use recursive to process on a smaller image resolution, 
+        after the recursive, I upscale the image to original resolution, also double the displacemment( for finding the  
+        smallest score and the best displacement, I used the same L2 norm to calculate as naive approach with np.roll to 
+        shift the channel).
     </p>
 
     <p>
