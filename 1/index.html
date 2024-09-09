@@ -87,6 +87,8 @@
         after the recursive, I upscale the image to original resolution, also double the displacemment( for finding the  
         smallest score and the best displacement, I used the same L2 norm to calculate as naive approach with np.roll to 
         shift the channel).
+
+        Aftering align the images, I used 0.85 scale crop to cut each channel's margin off to make the output image looks better.
     </p>
 
     <div class="image-row">
@@ -127,7 +129,9 @@
 
     <p>
         
-        <p align="middle">monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9</p>
+        <p align="middle">For the "emir" image, I also used SSIM from skimage.metrics to make the alignment look better. The SSIM score 
+            is computed as the higher the better.
+        </p>
         monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9
         cathedral Displacement: dx = -1, dy = 1 Displacement: dx = -1, dy = 7
         tobolsk Displacement: dx = 2, dy = 3 Displacement: dx = 3, dy = 6
