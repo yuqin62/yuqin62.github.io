@@ -31,7 +31,7 @@
         }
         .image-medium {
             margin: 5px;
-            width: 30%;
+            width: 25%;
             height: auto;
         }
         .image-large {
@@ -74,12 +74,16 @@
             <figcaption>Displacement: G (0, -6); R (1, 9)</figcaption>
         </figure>
     </div>
+
+    <h2 align="left">Image Pyramid</h2>
     <p>
-        <div class="image-row">
-            <img class="image-medium" src="media/cathedral.jpg" alt="Description of cathedral">
-            <img class="image-medium" src="media/tobolsk.jpg" alt="Description of tobolsk">
-            <img class="image-medium" src="media/monastery.jpg" alt="Description of monastery">
-        </div>        
+        To implement image pyramid, I used L2 norm to compute the difference between two images, evaluated it as score, 
+        and used for loops to find the smallest score, which is the best displacement. Naive approach is ok for the
+        jpg images, but not good for the tif images, because the jpg images are small.
+    </p>
+
+    <p>
+        
         <p align="middle">monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9</p>
         monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9
         cathedral Displacement: dx = -1, dy = 1 Displacement: dx = -1, dy = 7
