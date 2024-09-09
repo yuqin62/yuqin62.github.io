@@ -53,7 +53,7 @@
     <br>
     <br>
     <br>
-    <h2 align="left">Naive Approach</h2>
+    <h2 align="middle">Naive Approach</h2>
     <p>
         For the naive approach, I used L2 norm to compute the difference between two images, evaluated it as score, 
         and used for loops to find the smallest score, which is the best displacement. Naive approach is ok for the
@@ -75,7 +75,7 @@
         </figure>
     </div>
 
-    <h2 align="left">Image Pyramid</h2>
+    <h2 align="middle">Image Pyramid</h2>
     <p>
         To implement image pyramid, I used skimage.transform.rescale to first shrink the resolution of image channel, 
         then if the rescaled channel is over 300x300 resolution, I use recursive to process on a smaller image resolution, 
@@ -86,12 +86,20 @@
 
     <div class="image-row">
         <figure>
+            <img class="image-large" src="media/lady1.jpg" alt="Description of cathedral">
+            <figcaption>Output of Naive Approach</figcaption>
+        </figure>
+        <figure>
+            <img class="image-large" src="media/lady2.jpg" alt="Description of tobolsk">
+            <figcaption>Using Pyramid: G (12, -28) R (8, 30)</figcaption>
+        </figure>
+        <figure>
             <img class="image-large" src="media/church1.jpg" alt="Description of cathedral">
             <figcaption>Output of Naive Approach</figcaption>
         </figure>
         <figure>
             <img class="image-large" src="media/church2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: Displacement G (12, -6) R (22, -22)</figcaption>
+            <figcaption>Using Pyramid: G (12, -6) R (22, -22)</figcaption>
         </figure>
     </div>
 
