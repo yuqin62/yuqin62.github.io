@@ -20,16 +20,23 @@
         .center {
             text-align: center;
         }
+        .image-row {
+            display: flex;
+            justify-content: space-between;
+        }
         .image-small {
-            width: 20%;  /* Set a specific width for small image */
-            height: auto; /* Maintain aspect ratio */
+            margin: 10px;
+            width: 20%;
+            height: auto;
         }
         .image-medium {
-            width: 30%;  /* Set a specific width for medium image */
+            margin: 10px;
+            width: 30%;
             height: auto;
         }
         .image-large {
-            width: 40%;  /* Set a specific width for large image */
+            margin: 10px;
+            width: 40%;
             height: auto;
         }
     </style>
@@ -39,6 +46,7 @@
     <h1 align="middle">Project 1: Images of the Russian Empire:</p>
     <h1 align="middle">Colorizing the Prokudin-Gorskii photo collection</h1>
     <h2 align="middle">Yuqin Jiao</h2>
+    <h3 align="left">Naive Approach</h3>
     <p>
         <div class="image-row">
             <img class="image-small" src="media/cathedral.jpg" alt="Description of cathedral">
