@@ -40,13 +40,13 @@
             height: auto;
         }
         figcaption, p {
-            text-align: center; /* Center the caption */
-            margin-top: 5px; /* Space between image and caption */
+            text-align: center;
+            margin-top: 5px;
         }
         .divider {
-            border-left: 2px dashed black; /* Creates the vertical line */
-            height: 100%; /* Ensures the line matches the image height */
-            margin: 0 20px; /* Adds some spacing around the line */
+            border-left: 10px dashed black;
+            height: 100%;
+            margin: 0 20px;
         }
     </style>
 </head>
@@ -141,6 +141,12 @@
       
     <p align="middle">For the "emir" image, I also used SSIM from skimage.metrics to make the alignment look better. The SSIM score 
             is computed as the higher the better.
+    </p>
+
+    <h2 align="middle">Bells & Whistles</h2>
+    <p>
+        I found an image from pinterest website, and I used photoshop to make ti into 3 RGB channels, after that, I put the image as input, 
+        and used the same image pyramid function to align the channels, and then got the output image.
     </p>
         
 
