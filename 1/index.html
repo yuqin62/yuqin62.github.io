@@ -53,7 +53,7 @@
 </head>
 <body>
     <h1>Project 1</h1>
-    <h1 align="middle">Project 1: Images of the Russian Empire:</p>
+    <h1 align="middle">Project 1: Images of the Russian Empire:</h1>
     <h1 align="middle">Colorizing the Prokudin-Gorskii photo collection</h1>
     <h2 align="middle">Yuqin Jiao</h2>
     <br>
@@ -154,6 +154,18 @@
             <figcaption>Using Pyramid: G (12, -6) R (22, -22)</figcaption>
         </figure>
     </div>
+    
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/stone1.jpg" alt="Description of cathedral">
+            <figcaption>Output of Naive Approach</figcaption>
+        </figure>
+        <p align="middle">This image downloaded from <br>"Prokudin-Gorskii collection"</p>
+        <figure>
+            <img class="image-large" src="media/stone2.jpg" alt="Description of tobolsk">
+            <figcaption>Using Pyramid: G (-10, -14) R (-6, 30)</figcaption>
+        </figure>
+    </div>
 
     <div class="image-row">
         <figure>
@@ -166,16 +178,7 @@
         </figure>
     </div>
 
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/stone1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <figure>
-            <img class="image-large" src="media/stone2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (-10, -14) R (-6, 30)</figcaption>
-        </figure>
-    </div>
+    
       
     <p align="middle">For the "emir" image, I also used SSIM from skimage.metrics to make the alignment look better. The SSIM score 
             is computed as the higher the better.
@@ -183,13 +186,13 @@
     <br>
     <h2 align="middle">Bells & Whistles</h2>
     <p>
-        I found an image from pinterest website, and I used photoshop to make ti into 3 RGB channels, after that, I put the image as input, 
-        and used the same image pyramid function to align the channels, and then got the output image.
+        I found an image from pinterest website, and I used photoshop to make it into 3 RGB channels, after that, I put the image as input, 
+        and used the same image pyramid function as described above to align the channels, and then got the output image.
     </p>
     <div class="image-row">
         <figure>
             <img class="image-small" src="media/scene.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
+            <figcaption>Input Image</figcaption>
         </figure>
         <figure>
             <img class="image-large" src="media/scene2.jpg" alt="Description of tobolsk">
