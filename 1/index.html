@@ -23,7 +23,7 @@
         .image-row {
             display: flex;
             justify-content: space-between;
-            align-items: stretch;
+            align-items: center;
         }
         .image-small {
             margin: 20px;
@@ -48,6 +48,16 @@
             border-left: 10px dashed black;
             height: 100%;
             margin: 0 20px;
+        }
+        .arrow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+        }
+        svg {
+            width: 50px;
+            height: auto;
         }
     </style>
 </head>
@@ -97,7 +107,12 @@
             <img class="image-large" src="media/lady1.jpg" alt="Description of cathedral">
             <figcaption>Output of Naive Approach</figcaption>
         </figure>
-        <div class="divider"></div>
+        <div class="arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </div>
         <figure>
             <img class="image-large" src="media/lady2.jpg" alt="Description of tobolsk">
             <figcaption>Using Pyramid: G (12, -28) R (8, 30)</figcaption>
