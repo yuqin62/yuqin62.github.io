@@ -63,8 +63,7 @@
     <br>
     <br>
     <h2 align="middle">Part 1: Fun with Filters</h2>
-    <h4 align="middle">Part 1.1: Finite Difference Operator</h4>
-    <h4 align="middle">description of gradient magnitude computation</h4>
+    <h4 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h4>
     <p>
         (15 points) Include a brief description of gradient magnitude computation.
         (15 points) Answer the questions asked in part 1.2
@@ -72,29 +71,31 @@
         then I got partical derivative x and partical derivative y. Then I used np.sqrt(partial_derivative_x**2 + partial_derivative_y**2) 
         to compute gradient_magnitude. I chose threshold = 0.2 when binarizing the gradient magnitude image, after that, I got the first 
         edge image(fig 1_1_1)
+        
     </p>
-    <h4 align="middle">Part 1.2: Derivative of Gaussian (DoG) Filter</h4>
-    <h4 align="middle">convolution is commutative</h4>
-    <br>
-    <h2 align="middle">Naive Approach</h2>
+    <h4 align="middle">Part 1.2: Derivative of Gaussian (DoG) Filter: convolution is commutative</h4>
     <p>
-        For the naive approach, I used L2 norm to compute the difference between two images, evaluated it as score, 
-        and used for loops to find the smallest score, which is the best displacement. Naive approach is ok for the
-        jpg images, but not good for the tif images, because the tif images are really large.
+        After creating a blurred version of the original image by convolving with a gaussian, I convolved (Image * G) 
+        with Dx and Dy separately, after getting new partial derivative x and y, I chose threshold = 0.04 
+        to get the edge image(fig 1_2_1), the difference between the new edge image and fig 1_1_1 in Part1.1 is: the new 
+        edge image has less noise, and the edge is more clear and bloder.
+        To do the same thing with a single convolution, I first convolved G with Dx and Dy, then convolve the result with original 
+        image, after choosing the same threshold = 0.04, I got an edge image(fig 1_2_2), which is the same result as fig 1_2_1. So the 
+        same result got has been verified. This process shows that convolution is commutative.
     </p>
 
     <div class="image-row">
         <figure>
-            <img class="image-medium" src="media/cathedral.jpg" alt="Description of cathedral">
-            <figcaption>Displacement: G (-1, 1); R (-1, 7)</figcaption>
+            <img class="image-medium" src="media/figure1_1_1.jpg" alt="Description of figure1_1_1">
+            <figcaption>Edge Image from Part 1.1</figcaption>
         </figure>
         <figure>
-            <img class="image-medium" src="media/tobolsk.jpg" alt="Description of tobolsk">
-            <figcaption>Displacement: G (2, 3); R (3, 6)</figcaption>
+            <img class="image-medium" src="media/figure1_2_1.jpg" alt="Description of figure1_2_1">
+            <figcaption>Edge Image from Part 1.2 using (Im * G) * [Dx and Dy]</figcaption>
         </figure>
         <figure>
-            <img class="image-medium" src="media/monastery.jpg" alt="Description of monastery">
-            <figcaption>Displacement: G (0, -6); R (1, 9)</figcaption>
+            <img class="image-medium" src="media/figure1_2_2.jpg" alt="Description of figure1_2_2">
+            <figcaption>Edge Image from Part 1.2 using (G * [Dx and Dy]) * Im</figcaption>
         </figure>
     </div>
     <br>
