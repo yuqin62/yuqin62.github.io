@@ -64,7 +64,7 @@
     <br>
     <h2 align="middle">Part 1: Fun with Filters</h2>
     <h4 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h4>
-    <p>
+    <h3>
         (15 points) Include a brief description of gradient magnitude computation.
         (15 points) Answer the questions asked in part 1.2
         For computing gradient magnitude, I first applied Dx([[1, -1]]) and Dy([[1], [-1]]) to convolve with one image channel, 
@@ -72,9 +72,9 @@
         to compute gradient_magnitude. I chose threshold = 0.2 when binarizing the gradient magnitude image, after that, I got the first 
         edge image(fig 1_1_1)
         
-    </p>
+    </h3>
     <h4 align="middle">Part 1.2: Derivative of Gaussian (DoG) Filter: convolution is commutative</h4>
-    <p>
+    <h3>
         After creating a blurred version of the original image by convolving with a gaussian, I convolved (Image * G) 
         with Dx and Dy separately, after getting new partial derivative x and y, I chose threshold = 0.04 
         to get the edge image(fig 1_2_1), the difference between the new edge image and fig 1_1_1 in Part1.1 is: the new 
@@ -82,7 +82,7 @@
         To do the same thing with a single convolution, I first convolved G with Dx and Dy, then convolve the result with original 
         image, after choosing the same threshold = 0.04, I got an edge image(fig 1_2_2), which is the same result as fig 1_2_1. So the 
         same result got has been verified. This process shows that convolution is commutative.
-    </p>
+    </h3>
 
     <div class="image-row">
         <figure>
