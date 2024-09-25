@@ -15,12 +15,12 @@
           font-family: 'Source Sans Pro', sans-serif;
         }
         h3 {
-        font-size: 18px;
-        font-weight: bold;
+            font-size: 18px;
+            font-weight: bold;
         }
         p {
-        font-family: 'Source Sans Pro', sans-serif;
-        font-size: 15px;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 15px;
         }
         .center {
             text-align: center;
@@ -60,7 +60,6 @@
     <h2 align="middle">Yuqin Jiao</h2>
     <br>
     <br>
-    <br>
     <h2 align="middle">Part 1: Fun with Filters</h2>
     <h3 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h3>
     <p>
@@ -98,158 +97,37 @@
         </figure>
     </div>
     <br>
-    <h2 align="middle">Image Pyramid</h2>
+    <h2 align="middle">Part 2: Fun with Frequencies</h2>
+    <h3 align="middle">Part 2.1: Image Sharpening</h3>
     <p>
-        To implement image pyramid, I used skimage.transform.rescale to first shrink the resolution of image channel, 
-        then if the rescaled channel is over 300x300 resolution, I use recursive to process on a smaller image resolution, 
-        after the recursive, I upscale the image to original resolution, also double the displacemment( for finding the  
-        smallest score and the best displacement, I used the same L2 norm to calculate as naive approach with np.roll to 
-        shift the channel).
-
-        Aftering align the images, I used 0.85 scale crop to cut each channel's margin off to make the output image looks better.
-
-        <br>
-        Other image displacement:
-        <br>
-        melons: G (2, 30) R (-8, -34)
-        <br>
-        sculpture: G (4, -64) R (52, 86)
-        <br>
-        self_portrait: G (-14, 82) R (22, -94)
-        <br>
-        train: G (-6, -88) R (0, 0)
-    </p>
-
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/lady1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <figure>
-            <img class="image-large" src="media/lady2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (12, -28) R (8, 30)</figcaption>
-        </figure>
-    </div>
-
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/three_generations1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <figure>
-            <img class="image-large" src="media/three_generations2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (2, -22) R (10, 30)</figcaption>
-        </figure>
-    </div>
-
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/icon1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <figure>
-            <img class="image-large" src="media/icon2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (-2, -14) R (8, 30)</figcaption>
-        </figure>
-    </div>
-
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/onion_church1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <figure>
-            <img class="image-large" src="media/onion_church2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (-26, -20) R (10, 30)</figcaption>
-        </figure>
-    </div>
-
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/church1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <figure>
-            <img class="image-large" src="media/church2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (12, -6) R (22, -22)</figcaption>
-        </figure>
-    </div>
-
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/person1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <p align="middle">This image downloaded from "Prokudin-Gorskii collection"</p>
-        <figure>
-            <img class="image-large" src="media/person2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (-10, -14) R (-6, 30)</figcaption>
-        </figure>
-    </div>
-    
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/stone1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <p align="middle">This image downloaded from "Prokudin-Gorskii collection"</p>
-        <figure>
-            <img class="image-large" src="media/stone2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (4, -44) R (4, -20)</figcaption>
-        </figure>
-    </div>
-
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/emir1.jpg" alt="Description of cathedral">
-            <figcaption>Output of Naive Approach</figcaption>
-        </figure>
-        <p align="middle">For the "emir" image, I also used SSIM from skimage.metrics to make the alignment look better. The SSIM score 
-            is computed as the higher the better.</p>
-        <figure>
-            <img class="image-large" src="media/emir2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (-10, 0) R (6, -16)</figcaption>
-        </figure>
-    </div>
-
-    <p align="middle">The issue in my alignment is after rescaling several times, the images go blurry, although the alignment is ok. I tried 
-        to make anti-aliasing = True or False, but the result is similiar. Since the instruction on ed says "anti-alias will blur the image before downsizing and 
-        we'll learn about this in lecture this coming week", I think it is ok for now, but I'll try to fix the blur issue after I learn more.
-    </p>
-    <br>
-    <h2 align="middle">Bells & Whistles</h2>
-    <p>
-        I found an image from pinterest website, and I used photoshop to make it into 3 RGB channels, after that, I put the image as input, 
-        and used the same image pyramid function as described above to align the channels, and then got the output image.
+        for the Unsharp Masking: Show the progression of the original image to the sharpened image for 
+        the given image and an image of your choice.
+        According to the forlula: f +α( f − f ∗ g) = (1+α) f −α f ∗ g = f ∗((1+α)e −αg). After getting 
+        the blurred image using f*g, I subtracted it from the original image f. And I applied alpha = 1 to 
+        each 3 channels, after that, I got "f +α( f − f ∗ g)", then I combined this into the single convolutio operation, 
+        called unsharp mask filter, which is "(1+α)e −αg". Then I applied this unsharp mask filter to the original image. 
+        I first used image taj to get the sharpend result [figure2_1_1], then I downloaded an image("https://www.pinterest.com/pin/155303888060898481/"), 
+        [figure2_1_2], then I blurred it using gaussian kernel to get blurred image[figure2_1_2], I applied the filter to original image to sharpen it, then I got 
+        the sharpen image[figure2_1_4]. I found that when I selected alpha = 1, I got the sharpened image more sharpening than the original image.
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-small" src="media/scene.jpg" alt="Description of cathedral">
-            <figcaption>Input Image</figcaption>
+            <img class="image-medium" src="media/figure2_1_1.jpg" alt="Description of figure2_1_1">
+            <figcaption>[figure2_1_1] sharpened image of taj</figcaption>
         </figure>
         <figure>
-            <img class="image-large" src="media/scene2.jpg" alt="Description of tobolsk">
-            <figcaption>Using Pyramid: G (-2, 0) R (-2, -2)</figcaption>
+            <img class="image-medium" src="media/figure2_1_2.jpg" alt="Description of figure2_1_2">
+            <figcaption>[figure2_1_2] original image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium" src="media/figure2_1_3.jpg" alt="Description of figure2_1_3">
+            <figcaption>[figure2_1_3] blurred image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium" src="media/figure2_1_4.jpg" alt="Description of figure2_1_4">
+            <figcaption>[figure2_1_4] sharpened image, clearer than the origin version</figcaption>
         </figure>
     </div>
-        
 
 </body>
 </html>
-
-        <!--monastery Displacement: dx = 0, dy = -6 Displacement: dx = 1, dy = 9
-        cathedral Displacement: dx = -1, dy = 1 Displacement: dx = -1, dy = 7
-        tobolsk Displacement: dx = 2, dy = 3 Displacement: dx = 3, dy = 6
-
-        three_generations Displacement: dx = 2, dy = -22 Displacement: dx = 10, dy = 30
-        onion_church Displacement: dx = -26, dy = -20 Displacement: dx = 10, dy = 30
-        lady Displacement: dx = 12, dy = -28 Displacement: dx = 8, dy = 30
-        icon Displacement: dx = -2, dy = -14 Displacement: dx = 8, dy = 30
-        harvesters Displacement: dx = -18, dy = -8 Displacement: dx = -12, dy = 30
-        emir Displacement: dx = -10, dy = 0 Displacement: dx = 6, dy = -16
-        church Displacement: dx = 12, dy = -6 Displacement: dx = 22, dy = -22
-        train Displacement: dx = -14, dy = -8 Displacement: dx = 4, dy = 30
-        sculpture Displacement: dx = 22, dy = 22 Displacement: dx = -18, dy = 30
-        emir Displacement: dx = 14, dy = -6 Displacement: dx = 30, dy = 30
-
-        scene Displacement: dx = -2, dy = 0 isplacement: dx = -2, dy = -2-->
