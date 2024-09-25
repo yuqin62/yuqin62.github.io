@@ -264,7 +264,6 @@
     <h2 align="middle">Multi-resolution Blending and the Oraple Journey</h2>
     <h3 align="middle">Part 2.3: Gaussian and Laplacian Stacks</h3>
     <p>
-        (15 points) for multiresolution blending;
         (5 points) for including at least two multiresolution blending examples beyond the apple+orange, one of them with an irregular mask.
         For creating gaussian and laplacian stacks, I first created a gaussian stack, using channels as input,
         and each level [i] is blurred based on the previous [i-1] level. Then for laplacian stack, the input are also channels, 
@@ -338,6 +337,40 @@
         <figure>
             <img class="image-medium-3" src="media/figure2_3_12.jpg" alt="Description of figure2_3_12">
             <figcaption>[figure2_3_12] summed blended image(oraple) </figcaption>
+        </figure>
+    </div>
+    <h3 align="middle">Part 2.4: Multiresolution Blending (a.k.a. the oraple!)</h3>
+    <p>
+        The oraple has been make in part 2.3, as shown in [figure2_3_12]. In this part, I used 3 pair of images with irregular masks 
+        to bled them using different parameters. 
+        <br>
+        <br>
+        The first pair of images are the building and slum, downloaded from 
+        https://www.pinterest.com/pin/1139762618189519375/ and https://www.pinterest.com/pin/968133251120044619/.
+        <br>
+        <br>
+        To get the oraple image, at each level, I used "GR* apple_image_levels[i] + (1 - GR) * orange_image_levels[i]" to get the blended image 
+        at each level, and for the final blended image, I sum them up to get the oraple[figure2_3_12] image result.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_4_1.jpg" alt="Description of figure2_4_1">
+            <figcaption>[figure2_4_1] slums</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_4_2.jpg" alt="Description of figure2_4_2">
+            <figcaption>[figure2_4_2] buildings</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_4_3.jpg" alt="Description of figure2_4_3">
+            <figcaption>[figure2_4_3] mask for first pair of image</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure2_4_4.jpg" alt="Description of figure2_4_4">
+            <figcaption>[figure2_4_4] blended image of first pair images</figcaption>
         </figure>
     </div>
 
