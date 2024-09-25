@@ -52,8 +52,8 @@
         height: auto;
         }
         .image-medium-5 {
-        margin: 5px;
-        width: 125px;
+        margin: 3px;
+        width: 130px;
         height: auto;
         }
         .image-large {
@@ -78,8 +78,6 @@
     <h2 align="middle">Part 1: Fun with Filters</h2>
     <h3 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h3>
     <p>
-        (15 points) Include a brief description of gradient magnitude computation.
-        (15 points) Answer the questions asked in part 1.2
         For computing gradient magnitude, I first applied Dx([[1, -1]]) and Dy([[1], [-1]]) to convolve with one image channel, 
         then I got partical derivative x and partical derivative y. Then I used np.sqrt(partial_derivative_x**2 + partial_derivative_y**2) 
         to compute gradient_magnitude. I chose threshold = 0.2 when binarizing the gradient magnitude image, after that, I got the first 
@@ -92,6 +90,8 @@
         with Dx and Dy separately, after getting new partial derivative x and y, I chose threshold = 0.04 
         to get the edge image[figure1_2_1], the difference between the new edge image and [figure1_1_1] is: the new 
         edge image has less noise, and the edge is more clear and bloder.
+        <br>
+        <br>
         To do the same thing with a single convolution, I first convolved G with Dx and Dy, then convolve the result with original 
         image, after choosing the same threshold = 0.04, I got an edge image[figure1_2_2], which is the same result as [figure1_2_1]. So the 
         same result got has been verified. This process shows that convolution is commutative.
@@ -146,8 +146,6 @@
 
     <h3 align="middle">Part 2.2: Hybrid Images</h3>
     <p>
-        (5 points) for hybrid images and the Fourier analysis;
-        (5 points) for including at least two hybrid image examples beyond the first (including at least one failure);
         For hybriding images of the given example, after alignin images, I used the cat image as the high frequency image, which means show the 
         edge of the cat, I used the human image as the low frequency image, which means blur this image, using it as a background. 
         The result of the given example is showing as follows[figure2_2_1].
@@ -264,7 +262,6 @@
     <h2 align="middle">Multi-resolution Blending and the Oraple Journey</h2>
     <h3 align="middle">Part 2.3: Gaussian and Laplacian Stacks</h3>
     <p>
-        (5 points) for including at least two multiresolution blending examples beyond the apple+orange, one of them with an irregular mask.
         For creating gaussian and laplacian stacks, I first created a gaussian stack, using channels as input,
         and each level [i] is blurred based on the previous [i-1] level. Then for laplacian stack, the input are also channels, 
         the laplacian level [i] = gaussian level [i] - gaussian level [i+1], the last laplacian level is equal to the gaussian level [i]. 
@@ -421,6 +418,73 @@
             <figcaption>[figure2_4_12] blended image of third pair images</figcaption>
         </figure>
     </div>
+
+    <h3 align="middle">Bells & Whistles for Part 2.3</h3>
+    <p>
+        Since I used color images as input (I put 3 channels to the gaussian and laplacian stack functions, and combined the 3 output channels to the output image), to 
+        compare the result between gray image input and the color image input, I used rgb2gray to converted the color image to gray, and then I got 
+        the following images from [figure2_5_1] to [figure2_5_12].
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_1.jpg" alt="Description of figure2_5_1">
+            <figcaption>[figure2_5_1] masked apple at level 0</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_5.jpg" alt="Description of figure2_5_5">
+            <figcaption>[figure2_5_5] masked orange at level 0</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_9.jpg" alt="Description of figure2_5_9">
+            <figcaption>[figure2_5_9] blended image at level 0</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_2.jpg" alt="Description of figure2_5_2">
+            <figcaption>[figure2_5_2] masked apple at level 2</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_6.jpg" alt="Description of figure2_5_6">
+            <figcaption>[figure2_5_6] masked orange at level 2</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_10.jpg" alt="Description of figure2_5_10">
+            <figcaption>[figure2_5_10] blended image at level 2</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_3.jpg" alt="Description of figure2_5_3">
+            <figcaption>[figure2_5_3] masked apple at level 4</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_7.jpg" alt="Description of figure2_5_7">
+            <figcaption>[figure2_5_7] masked orange at level 4</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_11.jpg" alt="Description of figure2_5_11">
+            <figcaption>[figure2_5_11] blended image at level 4</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_4.jpg" alt="Description of figure2_5_4">
+            <figcaption>[figure2_5_4] masked apple summed</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_8.jpg" alt="Description of figure2_5_8">
+            <figcaption>[figure2_5_8] masked orange summed</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_5_12.jpg" alt="Description of figure2_5_12">
+            <figcaption>[figure2_5_12] summed blended image(oraple) </figcaption>
+        </figure>
+    </div>
+    
 
 
 </body>
