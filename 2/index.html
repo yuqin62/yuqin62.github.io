@@ -48,7 +48,7 @@
         }
         .image-medium-4 {
         margin: 5px;
-        width: 180px;
+        width: 165px;
         height: auto;
         }
         .image-medium-5 {
@@ -119,6 +119,7 @@
         the blurred image using "f * g", I subtracted it from the original image f. And I applied alpha = 1 to 
         each 3 channels, after that, I got "f +α( f − f ∗ g)", then I combined this into the single convolutio operation, 
         called unsharp mask filter, which is "(1+α)e −αg". Then I applied this unsharp mask filter to the original image.
+        <br>
         <br>
         I first used image taj to get the sharpend result [figure2_1_1], then I downloaded an image[figure2_1_2]("https://www.pinterest.com/pin/155303888060898481/"), 
         then I blurred it using gaussian kernel to get blurred image[figure2_1_3], I applied the filter to original image to sharpen it, then I got 
@@ -239,9 +240,13 @@
         </figure>
     </div>
     <h3 align="middle">Bells & Whistles for Part 2.2</h3>
-    Since I used color images as input (I put 3 channels to the hybrid function, and combined the 3 output channels to the output image), to 
-    compare the result between gray image input and the color image input, I used rgb2gray to converted the color image to gray, and then I got 
-    the following high frequency image[figure2_2_16], low frequency image[figure2_2_17], and hybrid result image[figure2_2_18].
+    <p>
+        Since I used color images as input (I put 3 channels to the hybrid function, and combined the 3 output channels to the output image), to 
+        compare the result between gray image input and the color image input, I used rgb2gray to converted the color image to gray, and then I got 
+        the following high frequency image[figure2_2_16], low frequency image[figure2_2_17], and hybrid result image[figure2_2_18]. It looks like the 
+        high frequency image looks the same as color high frequency image, but the low frequency image looks not as clear as the color low frequency image. 
+        So in this case, the hybrid result has a more blur background, so may be not obvious enough when looking far from it.
+    </p>
     <div class="image-row">
         <figure>
             <img class="image-medium-3" src="media/figure2_2_16.jpg" alt="Description of figure2_2_16">
@@ -256,7 +261,85 @@
             <figcaption>[figure2_2_18] hybrid image</figcaption>
         </figure>
     </div>
-    
+    <h2 align="middle">Multi-resolution Blending and the Oraple Journey</h2>
+    <h3 align="middle">Part 2.3: Gaussian and Laplacian Stacks</h3>
+    <p>
+        (15 points) for multiresolution blending;
+        (5 points) for including at least two multiresolution blending examples beyond the apple+orange, one of them with an irregular mask.
+        For creating gaussian and laplacian stacks, I first created a gaussian stack, using channels as input,
+        and each level [i] is blurred based on the previous [i-1] level. Then for laplacian stack, the input are also channels, 
+        the laplacian level [i] = gaussian level [i] - gaussian level [i+1], the last laplacian level is equal to the gaussian level [i]. 
+        To get color image, I used np.dstack to combine 3 channels at each level.
+        <br>
+        <br>
+        Then I built a binary mask, and also put the mask into guassian stack function with 7 times. I also applied laplacian stack 
+        to the apple and orange images, I got the masked apple and orange image at level0, level2, level4 using "GR * apple_image_levels[i]" 
+        for apple, "(1 - GR) * orange_image_levels[i]" for orange. To get the final masked apple and orange image, I added each level together, 
+        then the results are displayed in [figure2_3_4] and [figure2_3_8].
+        <br>
+        <br>
+        To get the oraple image, at each level, I used "GR* apple_image_levels[i] + (1 - GR) * orange_image_levels[i]" to get the blended image 
+        at each level, and for the final blended image, I sum them up to get the oraple[figure2_3_12] image result.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_1.jpg" alt="Description of figure2_3_1">
+            <figcaption>[figure2_3_1] masked apple at level 0</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_5.jpg" alt="Description of figure2_3_5">
+            <figcaption>[figure2_3_5] masked orange at level 0</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_9.jpg" alt="Description of figure2_3_9">
+            <figcaption>[figure2_3_9] blended image at level 0</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_2.jpg" alt="Description of figure2_3_2">
+            <figcaption>[figure2_3_2] masked apple at level 2</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_6.jpg" alt="Description of figure2_3_6">
+            <figcaption>[figure2_3_6] masked orange at level 2</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_10.jpg" alt="Description of figure2_3_10">
+            <figcaption>[figure2_3_10] blended image at level 2</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_3.jpg" alt="Description of figure2_3_3">
+            <figcaption>[figure2_3_3] masked apple at level 4</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_7.jpg" alt="Description of figure2_3_7">
+            <figcaption>[figure2_3_7] masked orange at level 4</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_11.jpg" alt="Description of figure2_3_11">
+            <figcaption>[figure2_3_11] blended image at level 4</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_4.jpg" alt="Description of figure2_3_4">
+            <figcaption>[figure2_3_4] masked apple summed</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_8.jpg" alt="Description of figure2_3_8">
+            <figcaption>[figure2_3_8] masked orange summed</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_12.jpg" alt="Description of figure2_3_12">
+            <figcaption>[figure2_3_12] summed blended image(oraple) </figcaption>
+        </figure>
+    </div>
 
 </body>
 </html>
