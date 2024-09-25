@@ -47,12 +47,12 @@
         height: auto;
         }
         .image-medium-4 {
-        margin: 5px;
+        margin: 3px;
         width: 165px;
         height: auto;
         }
         .image-medium-5 {
-        margin: 3px;
+        margin: 1.5px;
         width: 130px;
         height: auto;
         }
@@ -75,7 +75,7 @@
     <h1 align="middle">Filters/ Frequencies/ Sharpening/ Hybrid / Stacks/ Blending </h1>
     <h2 align="middle">Yuqin Jiao</h2>
     <br>
-    <h3 align="middle">Overview</h3>
+    <h2 align="middle">Overview</h2>
     <p>
         This project is about image blurring, sharpen, hubrid, blending with the use of filters, frequencies, stack functions.
     </p>
@@ -83,7 +83,7 @@
     <h3 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h3>
     <p>
         For computing gradient magnitude, I first applied Dx([[1, -1]]) and Dy([[1], [-1]]) to convolve with one image channel, 
-        then I got partical derivative x and partical derivative y. Then I used "np.sqrt(partial_derivative_x**2 + partial_derivative_y**2)"" 
+        then I got partical derivative x and partical derivative y. Then I used "np.sqrt(partial_derivative_x**2 + partial_derivative_y**2)" 
         to compute gradient_magnitude. I chose threshold = 0.2 when binarizing the gradient magnitude image, after that, I got the first 
         edge image[fig 1_1_1].
     </p>
@@ -491,7 +491,7 @@
         It seems like the result is not as good as the color input result, especially the orange is not clear in gray image. So in my previous part 2.3, since 
         I'v used color image as input, so I've enhanced the effect using color.
     </p>
-    <h3 align="middle">Conclusion</h3>
+    <h2 align="middle">Conclusion</h2>
     <p>
         I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
         about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
