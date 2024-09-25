@@ -48,10 +48,14 @@
         }
         .image-medium-4 {
         margin: 5px;
-        width: 180px;
+        width: 150px;
         height: auto;
         }
-        
+        .image-medium-5 {
+        margin: 5px;
+        width: 100px;
+        height: auto;
+        }
         .image-large {
             margin: 10px;
             width: 300px;
@@ -71,7 +75,6 @@
     <h1 align="middle">Filters/ Frequencies/ Sharpening/ Hybrid / Stacks/ Blending </h1>
     <h2 align="middle">Yuqin Jiao</h2>
     <br>
-    <br>
     <h2 align="middle">Part 1: Fun with Filters</h2>
     <h3 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h3>
     <p>
@@ -87,10 +90,10 @@
     <p>
         After creating a blurred version of the original image by convolving with a gaussian, I convolved (Image * G) 
         with Dx and Dy separately, after getting new partial derivative x and y, I chose threshold = 0.04 
-        to get the edge image(fig 1_2_1), the difference between the new edge image and fig 1_1_1 in Part1.1 is: the new 
+        to get the edge image[figure1_2_1], the difference between the new edge image and [figure1_1_1] is: the new 
         edge image has less noise, and the edge is more clear and bloder.
         To do the same thing with a single convolution, I first convolved G with Dx and Dy, then convolve the result with original 
-        image, after choosing the same threshold = 0.04, I got an edge image(fig 1_2_2), which is the same result as fig 1_2_1. So the 
+        image, after choosing the same threshold = 0.04, I got an edge image[figure1_2_2], which is the same result as [figure1_2_1]. So the 
         same result got has been verified. This process shows that convolution is commutative.
     </p>
 
@@ -113,11 +116,12 @@
     <h3 align="middle">Part 2.1: Image Sharpening</h3>
     <p>
         According to the formula: f +α( f − f ∗ g) = (1+α) f −α f ∗ g = f ∗((1+α)e −αg). After getting 
-        the blurred image using f*g, I subtracted it from the original image f. And I applied alpha = 1 to 
+        the blurred image using "f * g", I subtracted it from the original image f. And I applied alpha = 1 to 
         each 3 channels, after that, I got "f +α( f − f ∗ g)", then I combined this into the single convolutio operation, 
-        called unsharp mask filter, which is "(1+α)e −αg". Then I applied this unsharp mask filter to the original image. 
-        I first used image taj to get the sharpend result [figure2_1_1], then I downloaded an image("https://www.pinterest.com/pin/155303888060898481/"), 
-        [figure2_1_2], then I blurred it using gaussian kernel to get blurred image[figure2_1_2], I applied the filter to original image to sharpen it, then I got 
+        called unsharp mask filter, which is "(1+α)e −αg". Then I applied this unsharp mask filter to the original image.
+        <br>
+        I first used image taj to get the sharpend result [figure2_1_1], then I downloaded an image[figure2_1_2]("https://www.pinterest.com/pin/155303888060898481/"), 
+        then I blurred it using gaussian kernel to get blurred image[figure2_1_3], I applied the filter to original image to sharpen it, then I got 
         the sharpen image[figure2_1_4]. I found that when I selected alpha = 1, I got the sharpened image more sharpening than the original image.
     </p>
     <div class="image-row">
@@ -136,6 +140,47 @@
         <figure>
             <img class="image-medium-4" src="media/figure2_1_4.jpg" alt="Description of figure2_1_4">
             <figcaption>[figure2_1_4] sharpened image, clearer than the origin version</figcaption>
+        </figure>
+    </div>
+
+    <h3 align="middle">Part 2.2: Hybrid Images</h3>
+    <p>
+        (5 points) for hybrid images and the Fourier analysis;
+        (5 points) for including at least two hybrid image examples beyond the first (including at least one failure);
+        For hybriding images of the given example, after alignin images, I used the cat image as the high frequency image, which means show the 
+        edge of the cat, I used the human image as the low frequency image, which means blur this image, using it as a background. 
+        The result of the given example is showing as follows[figure2_2_1].
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium" src="media/figure2_2_1.jpg" alt="Description of figure2_2_1">
+            <figcaption>[figure2_2_1] result of the given hybrid image</figcaption>
+        </figure>
+    </div>
+    <p>
+        For the Fourier analysis, I made fourier image of aligned cat image[figure2_2_2], align human image[figure2_2_3], 
+        low frequency[figure2_2_4], high frequency[figure2_2_5], hybrid image[figure2_2_6]. The results are as follows.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-5" src="media/figure2_2_2.jpg" alt="Description of figure2_2_2">
+            <figcaption>[figure2_2_2] fourier image of input cat image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/figure2_2_3.jpg" alt="Description of figure2_2_3">
+            <figcaption>[figure2_2_3] fourier image of input human image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/figure2_2_5.jpg" alt="Description of figure2_2_5">
+            <figcaption>[figure2_2_5] fourier image of filtered cat image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/figure2_2_4.jpg" alt="Description of figure2_2_4">
+            <figcaption>[figure2_2_4] fourier image of filtered human image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/figure2_2_6.jpg" alt="Description of figure2_2_6">
+            <figcaption>[figure2_2_6] fourier image of hybrid image</figcaption>
         </figure>
     </div>
 
