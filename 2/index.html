@@ -20,6 +20,7 @@
         }
         p {
             font-family: 'Source Sans Pro', sans-serif;
+            text-align: center;
             font-size: 15px;
         }
         .center {
@@ -40,6 +41,17 @@
             width: 240px;
             height: auto;
         }
+        .image-medium-3 {
+        margin: 5px;
+        width: 240px;
+        height: auto;
+        }
+        .image-medium-4 {
+        margin: 5px;
+        width: 180px;
+        height: auto;
+        }
+        
         .image-large {
             margin: 10px;
             width: 300px;
@@ -84,15 +96,15 @@
 
     <div class="image-row">
         <figure>
-            <img class="image-medium" src="media/figure1_1_1.jpg" alt="Description of figure1_1_1">
+            <img class="image-medium-3" src="media/figure1_1_1.jpg" alt="Description of figure1_1_1">
             <figcaption>[figure1_1_1] Edge Image from Part 1.1</figcaption>
         </figure>
         <figure>
-            <img class="image-medium" src="media/figure1_2_1.jpg" alt="Description of figure1_2_1">
+            <img class="image-medium-3" src="media/figure1_2_1.jpg" alt="Description of figure1_2_1">
             <figcaption>[figure1_2_1] Edge Image from Part 1.2 using (Im * G) * [Dx and Dy]</figcaption>
         </figure>
         <figure>
-            <img class="image-medium" src="media/figure1_2_2.jpg" alt="Description of figure1_2_2">
+            <img class="image-medium-3" src="media/figure1_2_2.jpg" alt="Description of figure1_2_2">
             <figcaption>[figure1_2_2] Edge Image from Part 1.2 using (G * [Dx and Dy]) * Im</figcaption>
         </figure>
     </div>
@@ -100,9 +112,7 @@
     <h2 align="middle">Part 2: Fun with Frequencies</h2>
     <h3 align="middle">Part 2.1: Image Sharpening</h3>
     <p>
-        for the Unsharp Masking: Show the progression of the original image to the sharpened image for 
-        the given image and an image of your choice.
-        According to the forlula: f +α( f − f ∗ g) = (1+α) f −α f ∗ g = f ∗((1+α)e −αg). After getting 
+        According to the formula: f +α( f − f ∗ g) = (1+α) f −α f ∗ g = f ∗((1+α)e −αg). After getting 
         the blurred image using f*g, I subtracted it from the original image f. And I applied alpha = 1 to 
         each 3 channels, after that, I got "f +α( f − f ∗ g)", then I combined this into the single convolutio operation, 
         called unsharp mask filter, which is "(1+α)e −αg". Then I applied this unsharp mask filter to the original image. 
@@ -112,19 +122,19 @@
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-medium" src="media/figure2_1_1.jpg" alt="Description of figure2_1_1">
+            <img class="image-medium-4" src="media/figure2_1_1.jpg" alt="Description of figure2_1_1">
             <figcaption>[figure2_1_1] sharpened image of taj</figcaption>
         </figure>
         <figure>
-            <img class="image-medium" src="media/figure2_1_2.jpg" alt="Description of figure2_1_2">
+            <img class="image-medium-4" src="media/figure2_1_2.jpg" alt="Description of figure2_1_2">
             <figcaption>[figure2_1_2] original image</figcaption>
         </figure>
         <figure>
-            <img class="image-medium" src="media/figure2_1_3.jpg" alt="Description of figure2_1_3">
+            <img class="image-medium-4" src="media/figure2_1_3.jpg" alt="Description of figure2_1_3">
             <figcaption>[figure2_1_3] blurred image</figcaption>
         </figure>
         <figure>
-            <img class="image-medium" src="media/figure2_1_4.jpg" alt="Description of figure2_1_4">
+            <img class="image-medium-4" src="media/figure2_1_4.jpg" alt="Description of figure2_1_4">
             <figcaption>[figure2_1_4] sharpened image, clearer than the origin version</figcaption>
         </figure>
     </div>
