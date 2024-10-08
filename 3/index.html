@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<title>Project 2</title>-->
+    <style>
+        body {
+            padding: 30px;
+            width: 1000px;
+            margin: auto;
+            text-align: left;
+            font-weight: 300;
+            font-family: Arial, sans-serif;
+        }
+        h1, h2, h3 {
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align: center;
+            font-size: 15px;
+        }
+        .center {
+            text-align: center;
+        }
+        .image-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-small {
+            margin: 20px;
+            width: 150px;
+            height: auto;
+        }
+        .image-medium {
+            margin: 5px;
+            width: 240px;
+            height: auto;
+        }
+        .image-medium-3 {
+        margin: 5px;
+        width: 240px;
+        height: auto;
+        }
+        .image-medium-4 {
+        margin: 3px;
+        width: 165px;
+        height: auto;
+        }
+        .image-medium-5 {
+        margin: 1.5px;
+        width: 130px;
+        height: auto;
+        }
+        .image-large {
+            margin: 10px;
+            width: 300px;
+            height: auto;
+        }
+        figcaption {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            text-align: center;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="middle">Project 2: Fun with Filters and Frequencies!</h1>
+    <h1 align="middle">Filters/ Frequencies/ Sharpening/ Hybrid / Stacks/ Blending </h1>
+    <h2 align="middle">Yuqin Jiao</h2>
+    <br>
+    <h2 align="middle">Overview</h2>
+    <p>
+        This project is about image blurring, sharpen, hubrid, blending with the use of filters, frequencies, stack functions.
+    </p>
+    <h2 align="middle">Part 1: Fun with Filters</h2>
+    <h3 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h3>
+    <p>
+        For computing gradient magnitude, I first applied Dx([[1, -1]]) and Dy([[1], [-1]]) to convolve with one image channel, 
+        then I got partical derivative x and partical derivative y. Then I used "np.sqrt(partial_derivative_x**2 + partial_derivative_y**2)" 
+        to compute gradient_magnitude. I chose threshold = 0.2 when binarizing the gradient magnitude image, after that, I got the first 
+        edge image[fig 1_1_1].
+    </p>
+    <h3 align="middle">Part 1.2: Derivative of Gaussian (DoG) Filter: convolution is commutative</h3>
+    <p>
+        After creating a blurred version of the original image by convolving with a gaussian, I convolved (Image * G) 
+        with Dx and Dy separately, after getting new partial derivative x and y, I chose threshold = 0.04 
+        to get the edge image[figure1_2_1], the difference between the new edge image and [figure1_1_1] is: the new 
+        edge image has less noise, and the edge is more clear and bloder.
+        <br>
+        <br>
+        To do the same thing with a single convolution, I first convolved G with Dx and Dy, then convolve the result with original 
+        image, after choosing the same threshold = 0.04, I got an edge image[figure1_2_2], which is the same result as [figure1_2_1]. So the 
+        same results from two processes have been verified. This process shows that convolution is commutative.
+    </p>
 
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure1_1_1.jpg" alt="Description of figure1_1_1">
+            <figcaption>[figure1_1_1] Edge Image from Part 1.1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure1_2_1.jpg" alt="Description of figure1_2_1">
+            <figcaption>[figure1_2_1] Edge Image from Part 1.2 using (Im * G) * [Dx and Dy]</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure1_2_2.jpg" alt="Description of figure1_2_2">
+            <figcaption>[figure1_2_2] Edge Image from Part 1.2 using (G * [Dx and Dy]) * Im</figcaption>
+        </figure>
+    </div>
+    <br>
+    <h2 align="middle">Part 2: Fun with Frequencies</h2>
+    <h3 align="middle">Part 2.1: Image Sharpening</h3>
+    <p>
+        According to the formula: f +α( f − f ∗ g) = (1+α) f −α f ∗ g = f ∗((1+α)e −αg). After getting 
+        the blurred image using "f * g", I subtracted it from the original image f. And I applied alpha = 1 to 
+        each 3 channels, after that, I got "f +α( f − f ∗ g)", then I combined this into the single convolutio operation, 
+        called unsharp mask filter, which is "(1+α)e −αg". Then I applied this unsharp mask filter to the original image.
+        <br>
+        <br>
+        I first used image taj to get the sharpend result [figure2_1_3] and [figure2_1_4], then I downloaded another image[figure2_1_5] (https://www.pinterest.com/pin/155303888060898481/), 
+        then I blurred it using gaussian kernel to get blurred image[figure2_1_6], I applied the filter to original image to sharpen it, then I got 
+        the sharpen image[figure2_1_7] and image[figure2_1_8]. I found that when I selected alpha = 1 or 2, I got the sharpened image more sharpening than the original image. 
+        <br>
+        <br>
+        I then tried the same process to the other image (https://www.pinterest.com/pin/155303888068797329/). I found that when I selected alpha = 1 or 2, I got the sharpened image more sharpening than the original image.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_1.jpg" alt="Description of figure2_1_1">
+            <figcaption>[figure2_1_1] original image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_2.jpg" alt="Description of figure2_1_2">
+            <figcaption>[figure2_1_2] blurred image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_3.jpg" alt="Description of figure2_1_3">
+            <figcaption>[figure2_1_3] sharpened image with alpha = 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_4.jpg" alt="Description of figure2_1_4">
+            <figcaption>[figure2_1_4] sharpened image with alpha = 2</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_5.jpg" alt="Description of figure2_1_5">
+            <figcaption>[figure2_1_5] original image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_6.jpg" alt="Description of figure2_1_6">
+            <figcaption>[figure2_1_6] blurred image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_7.jpg" alt="Description of figure2_1_7">
+            <figcaption>[figure2_1_7] sharpened image with alpha = 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_8.jpg" alt="Description of figure2_1_8">
+            <figcaption>[figure2_1_8] sharpened image with alpha = 2</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_9.jpg" alt="Description of figure2_1_9">
+            <figcaption>[figure2_1_9] original image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_10.jpg" alt="Description of figure2_1_10">
+            <figcaption>[figure2_1_10] blurred image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_11.jpg" alt="Description of figure2_1_11">
+            <figcaption>[figure2_1_11] sharpened image with alpha = 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_12.jpg" alt="Description of figure2_1_12">
+            <figcaption>[figure2_1_12] sharpened image with alpha = 2</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Conclusion</h2>
+    <p>
+        I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
+        about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
+    </p>
+
+
+</body>
+</html>
