@@ -141,15 +141,68 @@
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-large" src="media/morphing2.gif" alt="Description of figure3">
+            <img class="image-large" src="media/morphing1.gif" alt="Description of figure3">
             <figcaption>[figure3] Triangulation on Image1</figcaption>
         </figure>
     </div>
 
     <h2 align="middle">Part 4: The "Mean face" of a population</h2>
     <p>
-        According to 
+        For part 4, I used the FEI dataset with the points provided correspondingly. I choosed the first 100 faces (1a, 2a, ..., 100a) to compute the average shape(compute the mean
+        points coordinates, getting triangulation). After getting the average shape, I warpped each faces into the average shape, the examples are shown in the following from [figure4_1] 
+        to [figure4_8]. After finishing the color blending, I got the average face [figure4_9]. Also, I warped my face into the average shape [figure4_10], inversely, I warped the average 
+        shape into my face[figure4_11].
     </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/61a.jpg" alt="Description of figure2_1_9">
+            <figcaption>[figure4_1] original image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/frame_060.png" alt="Description of figure2_1_10">
+            <figcaption>[figure4_2] blurred image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/15a.jpg" alt="Description of figure2_1_11">
+            <figcaption>[figure4_3] sharpened image with alpha = 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/frame_014.png" alt="Description of figure2_1_12">
+            <figcaption>[figure4_4] sharpened image with alpha = 2</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/99a.jpg" alt="Description of figure2_1_9">
+            <figcaption>[figure4_5] original image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/frame_098.png" alt="Description of figure2_1_10">
+            <figcaption>[figure4_6] blurred image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/8a.jpg" alt="Description of figure2_1_11">
+            <figcaption>[figure4_7] sharpened image with alpha = 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/frame_007.png" alt="Description of figure2_1_12">
+            <figcaption>[figure4_8] sharpened image with alpha = 2</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/average_face.jpg" alt="Description of figure2_1">
+            <figcaption>[figure4_9] Population Average Face</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/im1_warped_to_im2.jpg" alt="Description of figure2_2">
+            <figcaption>[figure4_10] My Face warped into Average Shape</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/im2_warped_to_im1.jpg" alt="Description of figure2_3">
+            <figcaption>[figure4_11] Average Shape warped into My Face</figcaption>
+        </figure>
+    </div>
 
     <h2 align="middle">Part 5: Caricatures: Extrapolating from the mean</h2>
     <p>
