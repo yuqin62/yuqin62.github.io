@@ -206,8 +206,25 @@
 
     <h2 align="middle">Part 5: Caricatures: Extrapolating from the mean</h2>
     <p>
-        According to 
+        To produce a caricature of your face, I used extrapolation from the population mean I calculated in Part 4. Say "p" is my face, "q" is the 
+        average face, the formula is: caricature = q + alpha(p-q). In this case, if alpha = 1, the result of caricature is my face, if alpha = 0, 
+        the result of caricature is the average face, if alpha is greater than 1, the result of caricature will have more my_face's features, if alpha is less than 
+        1, the result of caricature will have more the average_face's features. I choosed alpha = 1.5, 1, 0.5, generated the caricature images correspondingly.
     </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/warped_caricature_alpha_1.jpg" alt="Description of figure2_1">
+            <figcaption>[figure5_1] Caricature Image with Alpha = 1.5</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/warped_caricature_alpha_2.jpg" alt="Description of figure2_2">
+            <figcaption>[figure5_2] Caricature Image with Alpha = 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/warped_caricature_alpha_3.jpg" alt="Description of figure2_3">
+            <figcaption>[figure5_3] Caricature Image with Alpha = 0.5</figcaption>
+        </figure>
+    </div>
 
     <h2 align="middle">Bells and Whistles 1</h2>
     <p>
