@@ -77,33 +77,35 @@
     <br>
     <h2 align="middle">Overview</h2>
     <p>
-        This project is about image blurring, sharpen, hubrid, blending with the use of filters, frequencies, stack functions.
+        This project is for producing a "morph" animation of my face into someone else's face, 
+        compute the mean of a population of faces and extrapolate from a population mean to create a caricature of myself.
     </p>
     <h2 align="middle">Part 1: Defining Correspondences</h2>
-    <h3 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h3>
     <p>
-        For computing gradient magnitude, I first applied Dx([[1, -1]]) and Dy([[1], [-1]]) to convolve with one image channel, 
-        then I got partical derivative x and partical derivative y. Then I used "np.sqrt(partial_derivative_x**2 + partial_derivative_y**2)" 
-        to compute gradient_magnitude. I chose threshold = 0.2 when binarizing the gradient magnitude image, after that, I got the first 
-        edge image[fig 1_1_1].
+        For part 1, I cropped the image from me and another person (Margarita Bazyluk) and imported the two images. 
+        And I used the tool from a last year's student (as described in the project instruction) to label the points on both faces 
+        following the same order. Then I imported these two point sets to compute the points in the midway image with this formula 
+        "mid_points = (im1Points + im2Points) / 2". After creating the triangle using Delaunay, I got this midway triangle image 
+        [figure1_1]. Also I got the triangle diagram on both faces [figure1_2] [figure1_3].
     </p>
     
 
     <div class="image-row">
         <figure>
-            <img class="image-medium-3" src="media/figure1_1_1.jpg" alt="Description of figure1_1_1">
-            <figcaption>[figure1_1_1] Edge Image from Part 1.1</figcaption>
+            <img class="image-medium-3" src="media/figure1_1_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure1_1] Midway Triangulation</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-3" src="media/figure1_2_1.jpg" alt="Description of figure1_2_1">
-            <figcaption>[figure1_2_1] Edge Image from Part 1.2 using (Im * G) * [Dx and Dy]</figcaption>
+            <img class="image-medium-3" src="media/figure1_2_1.jpg" alt="Description of figure1_2">
+            <figcaption>[figure1_2] Triangulation on Image1</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-3" src="media/figure1_2_2.jpg" alt="Description of figure1_2_2">
-            <figcaption>[figure1_2_2] Edge Image from Part 1.2 using (G * [Dx and Dy]) * Im</figcaption>
+            <img class="image-medium-3" src="media/figure1_2_2.jpg" alt="Description of figure1_3">
+            <figcaption>[figure1_3] Triangulation on Image2</figcaption>
         </figure>
     </div>
     <br>
+
     <h2 align="middle">Part 2: Computing the "Mid-way Face"</h2>
     <h3 align="middle">Part 2.1: Image Sharpening</h3>
     <p>
