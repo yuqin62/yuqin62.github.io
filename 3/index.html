@@ -260,29 +260,20 @@
         allowfullscreen>
     </iframe>
 
-    
-
     <h2 align="middle">Bells and Whistles 3</h2>
     <p>
-        I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
-        about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
+        For part 3 of Bells and Whistles, I tried a different morphing algorithm, especially a different color blending algorithm. Instead of using t in range(0, 1) 
+        as the dissolve_frac, I used sigmoid function to implement t value. the value of t is "1 / (1 + np.exp(- k * (t - 0.5)))", with k = 10. In this case, the 
+        morphing process is not evenly and gradually change, it changing speed following the sigmoid function curve instead.
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-medium-4" src="media/figure2_1_9.jpg" alt="Description of figure2_1_9">
-            <figcaption>[figure2_1_9] original image</figcaption>
+            <img class="image-medium-3" src="media/morphing1.gif" alt="Description of figure2_1">
+            <figcaption>[figure4_9] Original Morphing Process in Part 3</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-4" src="media/figure2_1_10.jpg" alt="Description of figure2_1_10">
-            <figcaption>[figure2_1_10] blurred image</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_11.jpg" alt="Description of figure2_1_11">
-            <figcaption>[figure2_1_11] sharpened image with alpha = 1</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_12.jpg" alt="Description of figure2_1_12">
-            <figcaption>[figure2_1_12] sharpened image with alpha = 2</figcaption>
+            <img class="image-medium-3" src="media/morphing3.gif" alt="Description of figure2_2">
+            <figcaption>[figure4_10] New Morphing Process</figcaption>
         </figure>
     </div>
 
