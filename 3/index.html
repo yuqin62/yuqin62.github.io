@@ -119,15 +119,15 @@
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-medium-3" src="media/imageA.jpg" alt="Description of figure1_1">
+            <img class="image-medium-3" src="media/imageA.jpg" alt="Description of figure2_1">
             <figcaption>[figure2_1] Image1</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-3" src="media/midway_image.jpg" alt="Description of figure1_2">
+            <img class="image-medium-3" src="media/midway_image.jpg" alt="Description of figure2_2">
             <figcaption>[figure2_2] Midway Image</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-3" src="media/imageB.jpg" alt="Description of figure1_3">
+            <img class="image-medium-3" src="media/imageB.jpg" alt="Description of figure2_3">
             <figcaption>[figure2_3] Image2</figcaption>
         </figure>
     </div>
@@ -135,14 +135,16 @@
     
     <h2 align="middle">Part 3: The Morph Sequence</h2>
     <p>
-        According to 
+        For morphing process, I defined the morphing function and got the morphing image using "morphed_im = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_frac);" 
+        as described in the instruction. I set the warp_fraction and dissolve_fraction as the same value change from 0 to 1. After getting 45 frames, I made the 45 images into 
+        a gif format to show the morphing process[figure3].
     </p>
-
-    <h2 align="middle">Conclusion</h2>
-    <p>
-        I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
-        about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
-    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/morphing1.gif" alt="Description of figure3">
+            <figcaption>[figure3] Triangulation on Image1</figcaption>
+        </figure>
+    </div>
 
     <h2 align="middle">Part 4: The "Mean face" of a population</h2>
     <p>
