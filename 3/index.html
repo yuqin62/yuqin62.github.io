@@ -89,10 +89,9 @@
         [figure1_1]. Also I got the triangle diagram on both faces [figure1_2] [figure1_3].
     </p>
     
-
     <div class="image-row">
         <figure>
-            <img class="image-medium-3" src="media/triangulation .jpg" alt="Description of figure1_1">
+            <img class="image-medium-3" src="media/triangulation.jpg" alt="Description of figure1_1">
             <figcaption>[figure1_1] Midway Triangulation</figcaption>
         </figure>
         <figure>
@@ -107,76 +106,33 @@
     <br>
 
     <h2 align="middle">Part 2: Computing the "Mid-way Face"</h2>
-    <h3 align="middle">Part 2.1: Image Sharpening</h3>
     <p>
-        According to the formula: f +α( f − f ∗ g) = (1+α) f −α f ∗ g = f ∗((1+α)e −αg). After getting 
-        the blurred image using "f * g", I subtracted it from the original image f. And I applied alpha = 1 to 
-        each 3 channels, after that, I got "f +α( f − f ∗ g)", then I combined this into the single convolutio operation, 
-        called unsharp mask filter, which is "(1+α)e −αg". Then I applied this unsharp mask filter to the original image.
+        To compute the "Mid-way Face", I followed this steps: (1) computing the average shape (have been done in part 1),
+        (2) warping both faces into that shape, (3) averaging the colors together. For part 2, since we don't need to show 
+        the morphing process, I just computed the mean value of both points and colors of both images. Also, I set the affine 
+        transformation matrix in compute_affine function, after getting the affine transformation matrix then I computed the 
+        inverse of the affine transformation matrix, finally used RegularGridInterpolator (similar as the griddata) to interpolate 
+        the value of color on the midway image.
         <br>
-        <br>
-        I first used image taj to get the sharpend result [figure2_1_3] and [figure2_1_4], then I downloaded another image[figure2_1_5] (https://www.pinterest.com/pin/155303888060898481/), 
-        then I blurred it using gaussian kernel to get blurred image[figure2_1_6], I applied the filter to original image to sharpen it, then I got 
-        the sharpen image[figure2_1_7] and image[figure2_1_8]. I found that when I selected alpha = 1 or 2, I got the sharpened image more sharpening than the original image. 
-        <br>
-        <br>
-        I then tried the same process to the other image (https://www.pinterest.com/pin/155303888068797329/). I found that when I selected alpha = 1 or 2, I got the sharpened image more sharpening than the original image.
+        I implemented the above approached on each three channels separately, so after getting the blended color on each channel, I then 
+        used np.dstack to get the final midway image[figure2_2].
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-medium-4" src="media/figure2_1_1.jpg" alt="Description of figure2_1_1">
-            <figcaption>[figure2_1_1] original image</figcaption>
+            <img class="image-medium-3" src="media/imageA.jpg" alt="Description of figure1_1">
+            <figcaption>[figure2_1] Image1</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-4" src="media/figure2_1_2.jpg" alt="Description of figure2_1_2">
-            <figcaption>[figure2_1_2] blurred image</figcaption>
+            <img class="image-medium-3" src="media/midway_image.jpg" alt="Description of figure1_2">
+            <figcaption>[figure2_2] Midway Image</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-4" src="media/figure2_1_3.jpg" alt="Description of figure2_1_3">
-            <figcaption>[figure2_1_3] sharpened image with alpha = 1</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_4.jpg" alt="Description of figure2_1_4">
-            <figcaption>[figure2_1_4] sharpened image with alpha = 2</figcaption>
+            <img class="image-medium-3" src="media/imageB.jpg" alt="Description of figure1_3">
+            <figcaption>[figure2_3] Image2</figcaption>
         </figure>
     </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_5.jpg" alt="Description of figure2_1_5">
-            <figcaption>[figure2_1_5] original image</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_6.jpg" alt="Description of figure2_1_6">
-            <figcaption>[figure2_1_6] blurred image</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_7.jpg" alt="Description of figure2_1_7">
-            <figcaption>[figure2_1_7] sharpened image with alpha = 1</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_8.jpg" alt="Description of figure2_1_8">
-            <figcaption>[figure2_1_8] sharpened image with alpha = 2</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_9.jpg" alt="Description of figure2_1_9">
-            <figcaption>[figure2_1_9] original image</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_10.jpg" alt="Description of figure2_1_10">
-            <figcaption>[figure2_1_10] blurred image</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_11.jpg" alt="Description of figure2_1_11">
-            <figcaption>[figure2_1_11] sharpened image with alpha = 1</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-4" src="media/figure2_1_12.jpg" alt="Description of figure2_1_12">
-            <figcaption>[figure2_1_12] sharpened image with alpha = 2</figcaption>
-        </figure>
-    </div>
-
+    <br>
+    
     <h2 align="middle">Part 3: The Morph Sequence</h2>
     <p>
         According to 
@@ -215,12 +171,24 @@
         I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
         about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
     </p>
-
-    <h2 align="middle">Bells and Whistles 4</h2>
-    <p>
-        I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
-        about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
-    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_9.jpg" alt="Description of figure2_1_9">
+            <figcaption>[figure2_1_9] original image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_10.jpg" alt="Description of figure2_1_10">
+            <figcaption>[figure2_1_10] blurred image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_11.jpg" alt="Description of figure2_1_11">
+            <figcaption>[figure2_1_11] sharpened image with alpha = 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/figure2_1_12.jpg" alt="Description of figure2_1_12">
+            <figcaption>[figure2_1_12] sharpened image with alpha = 2</figcaption>
+        </figure>
+    </div>
 
 
 </body>
