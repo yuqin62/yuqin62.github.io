@@ -71,7 +71,7 @@
     </style>
 </head>
 <body>
-    <h1 align="middle">Project 2: Fun with Filters and Frequencies!</h1>
+    <h1 align="middle">Project 3: Face Morphing</h1>
     <h1 align="middle">Filters/ Frequencies/ Sharpening/ Hybrid / Stacks/ Blending </h1>
     <h2 align="middle">Yuqin Jiao</h2>
     <br>
@@ -79,7 +79,7 @@
     <p>
         This project is about image blurring, sharpen, hubrid, blending with the use of filters, frequencies, stack functions.
     </p>
-    <h2 align="middle">Part 1: Fun with Filters</h2>
+    <h2 align="middle">Part 1: Defining Correspondences</h2>
     <h3 align="middle">Part 1.1: Finite Difference Operator: description of gradient magnitude computation</h3>
     <p>
         For computing gradient magnitude, I first applied Dx([[1, -1]]) and Dy([[1], [-1]]) to convolve with one image channel, 
@@ -87,18 +87,7 @@
         to compute gradient_magnitude. I chose threshold = 0.2 when binarizing the gradient magnitude image, after that, I got the first 
         edge image[fig 1_1_1].
     </p>
-    <h3 align="middle">Part 1.2: Derivative of Gaussian (DoG) Filter: convolution is commutative</h3>
-    <p>
-        After creating a blurred version of the original image by convolving with a gaussian, I convolved (Image * G) 
-        with Dx and Dy separately, after getting new partial derivative x and y, I chose threshold = 0.04 
-        to get the edge image[figure1_2_1], the difference between the new edge image and [figure1_1_1] is: the new 
-        edge image has less noise, and the edge is more clear and bloder.
-        <br>
-        <br>
-        To do the same thing with a single convolution, I first convolved G with Dx and Dy, then convolve the result with original 
-        image, after choosing the same threshold = 0.04, I got an edge image[figure1_2_2], which is the same result as [figure1_2_1]. So the 
-        same results from two processes have been verified. This process shows that convolution is commutative.
-    </p>
+    
 
     <div class="image-row">
         <figure>
@@ -115,7 +104,7 @@
         </figure>
     </div>
     <br>
-    <h2 align="middle">Part 2: Fun with Frequencies</h2>
+    <h2 align="middle">Part 2: Computing the "Mid-way Face"</h2>
     <h3 align="middle">Part 2.1: Image Sharpening</h3>
     <p>
         According to the formula: f +α( f − f ∗ g) = (1+α) f −α f ∗ g = f ∗((1+α)e −αg). After getting 
@@ -186,7 +175,46 @@
         </figure>
     </div>
 
+    <h2 align="middle">Part 3: The Morph Sequence</h2>
+    <p>
+        According to 
+    </p>
+
     <h2 align="middle">Conclusion</h2>
+    <p>
+        I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
+        about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
+    </p>
+
+    <h2 align="middle">Part 4: The "Mean face" of a population</h2>
+    <p>
+        According to 
+    </p>
+
+    <h2 align="middle">Part 5: Caricatures: Extrapolating from the mean</h2>
+    <p>
+        According to 
+    </p>
+
+    <h2 align="middle">Bells and Whistles 1</h2>
+    <p>
+        I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
+        about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
+    </p>
+
+    <h2 align="middle">Bells and Whistles 2</h2>
+    <p>
+        I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
+        about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
+    </p>
+
+    <h2 align="middle">Bells and Whistles 3</h2>
+    <p>
+        I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
+        about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
+    </p>
+
+    <h2 align="middle">Bells and Whistles 4</h2>
     <p>
         I think I've learned about how to blur and sharpen the image, especially the algrithm of sharpen is really efficient. And I also learned 
         about the approach to blend two images, and how to deal with the boundary is really helpful and fun!
