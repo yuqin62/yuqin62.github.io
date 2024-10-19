@@ -216,10 +216,9 @@
 
     <h2 align="middle">Part 4: Image Rectification</h2>
     <p>
-        For part 4, I used the FEI dataset with the points provided correspondingly. I choosed the first 100 faces (1a, 2a, ..., 100a) to compute the average shape(compute the mean
-        points coordinates, getting triangulation). After getting the average shape, I warpped each faces into the average shape, the examples are shown in the following from [figure4_1] 
-        to [figure4_8]. After finishing the color blending, I got the average face [figure4_9]. Also, I warped my face into the average shape [figure4_10], inversely, I warped the average 
-        shape into my face[figure4_11].
+        For image rectification, I selected four corners of a rectangular object in the image (im1_pts) and defined the corresponding target points (im2_pts) as a perfect rectangle. 
+        Using the homography computed between these points (the same function I used above), I warped the image to correct the perspective, making the object appear rectangular. 
+        I tested this with three pairs of rectification images to ensure the homography and warping were working correctly.
     </p>
     <div class="image-row">
         <figure>
@@ -268,7 +267,7 @@
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-medium-3" src="media/figure3_1.jpg" alt="Description of figure2_1">
+            <img class="image-large" src="media/figure3_1.jpg" alt="Description of figure2_1">
             <figcaption>[figure3_1] Caricature Image with Alpha = 1.5</figcaption>
         </figure>
     </div>
