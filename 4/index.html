@@ -69,10 +69,12 @@
             margin-top: 5px;
         }    
     </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <h1 align="middle">Project 4: [Auto]Stitching Photo Mosaics</h1>
-    <h1 align="middle">Image Warping and Mosaicing Image</h1>
+    <h1 align="middle">Part A: Image Warping and Mosaicing Image</h1>
     <h2 align="middle">Yuqin Jiao</h2>
     <br>
     <h2 align="middle">Overview</h2>
@@ -132,16 +134,75 @@
 
     <h2 align="middle">Part 2: Recover Homographies"</h2>
     <p>
-        To compute the "Mid-way Face", I followed this steps: (1) computing the average shape (have been done in part 1),
-        (2) warping both faces into that shape, (3) averaging the colors together. For part 2, since we don't need to show 
-        the morphing process, I just computed the mean value of both points and colors of both images. Also, I set the affine 
-        transformation matrix in compute_affine function, after getting the affine transformation matrix then I computed the 
-        inverse of the affine transformation matrix, finally used RegularGridInterpolator (similar as the griddata) to interpolate 
-        the value of color on the midway image.
-        <br>
-        I implemented the above approached on each three channels separately, so after getting the blended color on each channel, I then 
-        used np.dstack to get the final midway image[figure2_2].
+        The theory for recovering homographies is explained below:
     </p>
+    <p>
+        The transformation is a homography: \( q = Hp \), with \( q \) and \( h \) in homogeneous coordinates:
+    </p>
+    <div class="math">
+        \[
+        \begin{pmatrix}
+        wq_1 \\
+        wq_2 \\
+        w
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+        a & b & c \\
+        d & e & f \\
+        g & h & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+        p_1 \\
+        p_2 \\
+        1
+        \end{pmatrix}
+        \]
+    </div>
+    <p>
+        This implies that \( w = g p_1 + h p_2 + 1 \). We can substitute to get the relations:
+    </p>
+    <div class="math">
+        \[
+        (g p_1 + h p_2 + 1) q_1 = a p_1 + b p_2 + c
+        \]
+        \[
+        (g p_1 + h p_2 + 1) q_2 = d p_1 + e p_2 + f
+        \]
+    </div>
+    <p>Or equivalently:</p>
+    <div class="math">
+        \[
+        g(p_1 q_1) + h(p_2 q_1) + q_1 = a p_1 + b p_2 + c
+        \]
+        \[
+        g(p_1 q_2) + h(p_2 q_2) + q_2 = d p_1 + e p_2 + f
+        \]
+    </div>
+    <p>Finally, stacking this into matrix form, we get:</p>
+    <div class="math">
+        \[
+        \begin{pmatrix}
+        p_1 & p_2 & 1 & 0 & 0 & 0 & -p_1 q_1 & -p_2 q_1 \\
+        0 & 0 & 0 & p_1 & p_2 & 1 & -p_1 q_2 & -p_2 q_2
+        \end{pmatrix}
+        \begin{pmatrix}
+        a \\
+        b \\
+        c \\
+        d \\
+        e \\
+        f \\
+        g \\
+        h
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+        q_1 \\
+        q_2
+        \end{pmatrix}
+        \]
+    </div>
     <div class="image-row">
         <figure>
             <img class="image-medium-3" src="media/imageA.jpg" alt="Description of figure2_1">
@@ -295,27 +356,6 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen>
     </iframe>
-
-    <h2 align="middle">Bells and Whistles 3</h2>
-    <p>
-        For part 3 of Bells and Whistles, I tried a different morphing algorithm, especially a different color blending algorithm. Instead of using t in range(0, 1) 
-        as the dissolve_frac, I used sigmoid function to implement t value. the value of t is "1 / (1 + np.exp(- k * (t - 0.5)))", with k = 10. In this case, the 
-        morphing process is not evenly and gradually change, it changing speed following the sigmoid function curve instead.
-    </p>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/frame_015_1.png" alt="Description of figure2_1">
-            <figcaption>[figure7_1] Original Morphing Process Frame15</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/frame_015_2.png" alt="Description of figure2_2">
-            <figcaption>[figure7_2] New Morphing Process Frame15</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/morphing3.gif" alt="Description of figure2_2">
-            <figcaption>[figure7_3] New Morphing Process</figcaption>
-        </figure>
-    </div>
 
 </body>
 </html>
