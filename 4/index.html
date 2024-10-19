@@ -202,28 +202,16 @@
         q_2
         \end{pmatrix}
         \]
+    <p>Generally, I used H = computeH(im1_pts,im2_pts) to compute the homography matrix from im1 warping to im2.</p>
     </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/imageA.jpg" alt="Description of figure2_1">
-            <figcaption>[figure2_1] Image1</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/midway_image.jpg" alt="Description of figure2_2">
-            <figcaption>[figure2_2] Midway Image</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/imageB.jpg" alt="Description of figure2_3">
-            <figcaption>[figure2_3] Image2</figcaption>
-        </figure>
-    </div>
-    <br>
     
     <h2 align="middle">Part 3: Warp the Images</h2>
     <p>
-        For morphing process, I defined the morphing function and got the morphing image using "morphed_im = morph(im1, im2, im1_pts, im2_pts, tri, warp_frac, dissolve_frac);" 
-        as described in the instruction. I set the warp_fraction and dissolve_fraction as the same value change from 0 to 1. After getting 45 frames, I made the 45 images into 
-        a gif format to show the morphing process[figure3].
+        To warp the images, I used the homography matrix H to map the canvas coordinates back to the original image space. 
+        First, I created a canvas with dimensions based on the bounding box, then I computed the corresponding points in the 
+        original image by applying the inverse of H. Using RegularGridInterpolator, I interpolated the pixel values for the 
+        red, green, and blue channels separately. I then combined these channels to produce the final warped image and created 
+        an alpha mask to mark valid pixels in the result.
     </p>
     <div class="image-row">
         <figure>
