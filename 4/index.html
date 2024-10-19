@@ -26,10 +26,13 @@
         .center {
             text-align: center;
         }
-        .image-row {
+        .image-row, .iframe-row {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .iframe-row iframe {
+            margin: 10px;
         }
         .image-small {
             margin: 20px;
@@ -292,48 +295,57 @@
 
     <h2 align="middle">Bells and Whistles 1</h2>
     <p>
-        For part 1 of Bells and Whistles, I chose a face from difference gender and ethnicity to try morphing.
+        For part 1 of Bells and Whistles: my own ideas, I chose a face from difference gender and ethnicity to try morphing.
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-medium-3" src="media/image1.jpg" alt="Description of figure2_1">
-            <figcaption>[figure6_1] Image1 from FEI Dataset</figcaption>
+            <img class="image-medium-3" src="media/figure4_1.jpg" alt="Description of figure2_1">
+            <figcaption>[figure4_1] Image1 from FEI Dataset</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-3" src="media/image2.jpg" alt="Description of figure2_2">
-            <figcaption>[figure6_2] Image2 from FEI Dataset</figcaption>
+            <img class="image-medium-3" src="media/figure4_2.jpg" alt="Description of figure2_2">
+            <figcaption>[figure4_2] Image2 from FEI Dataset</figcaption>
         </figure>
     </div>
     <div class="image-row">
         <figure>
-            <img class="image-medium-3" src="media/output7_1.jpg" alt="Description of figure2_1">
-            <figcaption>[figure6_3] Morphing just the Shape(warping)</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/output7_2.jpg" alt="Description of figure2_2">
-            <figcaption>[figure6_4] Morphing just the Appearance(color)</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/output7_3.jpg" alt="Description of figure2_3">
-            <figcaption>[figure6_5] Morphing both Shape and Color</figcaption>
+            <img class="image-large" src="media/figure4_3.jpg" alt="Description of figure2_1">
+            <figcaption>[figure4_3] Morphing just the Shape(warping)</figcaption>
         </figure>
     </div>
 
     <h2 align="middle">Bells and Whistles 2</h2>
     <p>
-        For part 2 of Bells and Whistles, I made a video morphing five skaters' faces. The video theme is "Romeo and Juliet", which means the 
+        For part 2 of Bells and Whistles: video mosaics, I made a video morphing five skaters' faces. The video theme is "Romeo and Juliet", which means the 
         five skaters all have had skating programs using "Romeo and Juliet" theme.
     <br>
         I believe the "Romeo and Juliet" theme is not only about LOVE, it's more about FREEDOM.
     </p>
     <br>
-    <iframe width="560" height="315" 
-        src="https://www.youtube.com/embed/huIg69GEYS8" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-    </iframe>
+    <div class="iframe-row">
+        <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/huIg69GEYS8" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+        <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/huIg69GEYS8" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+        <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/huIg69GEYS8" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    
 
 </body>
 </html>
