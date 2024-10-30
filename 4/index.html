@@ -267,9 +267,9 @@
         to pixels farther from the edges. This approach allows for smooth blending by weighting pixel contributions 
         based on their distance from the image boundaries. These weights were applied during the blending process 
         to perform a weighted average of the two images at every pixel, resulting in a smooth transition between 
-        them. The final mosaic was normalized by the accumulated weights and clipped to ensure valid pixel 
-        values. Then, I displayed the feathered alpha masks and the resulting mosaic with smooth blending. 
-        (The source images are shown in Part 1: Shoot the Pictures.)
+        them. I used an accumulated weight matrix (weight_mosaic) to combine and normalize the feathered weights 
+        from both images, ensuring smooth blending in overlapping areas. Then, I displayed the feathered alpha 
+        masks and the resulting mosaic with smooth blending. (The source images are shown in Part 1)
     </p>
     <div class="image-row">
         <figure>
