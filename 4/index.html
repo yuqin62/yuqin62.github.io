@@ -337,7 +337,7 @@
         \[
         r_i = \min_{j} \| \vec{x}_i - \vec{x}_j \|, \quad \text{s.t.} \quad f(\vec{x}_i) &lt; c_{\text{robust}} f(\vec{x}_j), \quad \vec{x}_j \in \mathcal{I}
         \]
-        for all interest points, where \(\mathcal{I}\) is the set of detected corners.
+        for all corners, where \(\mathcal{I}\) is the set of detected corners.
         <br>
         After that, I blurred the whole image[figure6_2], and then sampled these patches from the larger 40x40 window to have a nice big blurred descriptor. Then I extracted 
         axis-aligned 8x8 patches for each corners as feature descriptor. I also used bias/gain-normalize to normalize the descriptors. 
