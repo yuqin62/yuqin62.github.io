@@ -1,1 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<title>Project 4</title>-->
+    <style>
+        body {
+            padding: 30px;
+            width: 1000px;
+            margin: auto;
+            text-align: left;
+            font-weight: 300;
+            font-family: Arial, sans-serif;
+        }
+        h1, h2, h3 {
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align: center;
+            font-size: 15px;
+        }
+        .center {
+            text-align: center;
+        }
+        .image-row, .iframe-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .iframe-row iframe {
+            margin: 10px;
+        }
+        .image-small {
+            margin: 20px;
+            width: 150px;
+            height: auto;
+        }
+        .image-medium {
+            margin: 5px;
+            width: 240px;
+            height: auto;
+        }
+        .image-medium-3 {
+        margin: 5px;
+        width: 240px;
+        height: auto;
+        }
+        .image-medium-4 {
+        margin: 3px;
+        width: 165px;
+        height: auto;
+        }
+        .image-medium-5 {
+        margin: 1.5px;
+        width: 130px;
+        height: auto;
+        }
+        .image-large {
+            margin: 10px;
+            width: 600px;
+            height: auto;
+        }
+        figcaption {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            text-align: center;
+            margin-top: 5px;
+        }    
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <h1 align="middle">Project 4: [Auto]Stitching Photo Mosaics</h1>
+    <br>
+    <h2 align="middle">Part A: Image Warping and Mosaicing Image</h2>
+    <h2 align="middle">Yuqin Jiao</h2>
+    <h2 align="middle">Overview for Part A</h2>
+    <p>
+        Part A is for taking pictures, selecting corresponding points from the two images, then compute homography, warping im1 to im2, 
+        blending the two images into a mosaic.
+    </p>
+    <h2 align="middle">Part 1: Shoot the Pictures</h2>
+    <p>
+        For part 1, I took 4 pair of pictures, with fixing the center of projection (COP) and rotating my camera while capturing photos. 
+        Then I selected corresponding points on both images.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure1_1_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure1_1_1] landscape around Moffitt</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure1_1_2.jpg" alt="Description of figure1_2">
+            <figcaption>[figure1_1_2] landscape around Moffitt</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure1_2_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure1_2_1] interior of Wurster Hall</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure1_2_2.jpg" alt="Description of figure1_2">
+            <figcaption>[figure1_2_2] interior of Wurster Hall</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure1_3_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure1_3_1] interior of Cory Hall</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure1_3_2.jpg" alt="Description of figure1_2">
+            <figcaption>[figure1_3_2] interior of Cory Hall</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure1_4_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure1_4_1] stairs inside Wurster Hall</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure1_4_2.jpg" alt="Description of figure1_2">
+            <figcaption>[figure1_4_2] stairs inside Wurster Hall</figcaption>
+        </figure>
+    </div>
+    <br>
+
+    <h2 align="middle">Part 2: Recover Homographies</h2>
+    <p>
+        The theory for recovering homographies is explained below:
+    </p>
+    <p>
+        The transformation is a homography: \( q = Hp \), with \( q \) and \( h \) in homogeneous coordinates:
+    </p>
+    <div class="math">
+        \[
+        \begin{pmatrix}
+        wq_1 \\
+        wq_2 \\
+        w
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+        a & b & c \\
+        d & e & f \\
+        g & h & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+        p_1 \\
+        p_2 \\
+        1
+        \end{pmatrix}
+        \]
+    </div>
+    <p>
+        This implies that \( w = g p_1 + h p_2 + 1 \). We can substitute to get the relations:
+    </p>
+    <div class="math">
+        \[
+        (g p_1 + h p_2 + 1) q_1 = a p_1 + b p_2 + c
+        \]
+        \[
+        (g p_1 + h p_2 + 1) q_2 = d p_1 + e p_2 + f
+        \]
+    </div>
+    <p>Or equivalently:</p>
+    <div class="math">
+        \[
+        g(p_1 q_1) + h(p_2 q_1) + q_1 = a p_1 + b p_2 + c
+        \]
+        \[
+        g(p_1 q_2) + h(p_2 q_2) + q_2 = d p_1 + e p_2 + f
+        \]
+    </div>
+    <p>Finally, stacking this into matrix form, we get:</p>
+    <div class="math">
+        \[
+        \begin{pmatrix}
+        p_1 & p_2 & 1 & 0 & 0 & 0 & -p_1 q_1 & -p_2 q_1 \\
+        0 & 0 & 0 & p_1 & p_2 & 1 & -p_1 q_2 & -p_2 q_2
+        \end{pmatrix}
+        \begin{pmatrix}
+        a \\
+        b \\
+        c \\
+        d \\
+        e \\
+        f \\
+        g \\
+        h
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+        q_1 \\
+        q_2
+        \end{pmatrix}
+        \]
+    <p>Generally, I used H = computeH(im1_pts,im2_pts) to compute the homography matrix from im1 warping to im2.</p>
+    </div>
+    
+    <h2 align="middle">Part 3: Warp the Images</h2>
+    <p>
+        To warp the images, I used the homography matrix H to map the canvas coordinates back to the original image space. 
+        First, I created a canvas with dimensions based on the bounding box, then I computed the corresponding points in the 
+        original image by applying the inverse of H. Using RegularGridInterpolator, I interpolated the pixel values for the 
+        red, green, and blue channels separately. I then combined these channels to produce the final warped image and created 
+        an alpha mask to mark valid pixels in the result.
+    </p>
+
+    <h2 align="middle">Part 4: Image Rectification</h2>
+    <p>
+        For image rectification, I selected four corners of a rectangular object in the image (im1_pts) and defined the corresponding target points (im2_pts) as a perfect rectangle. 
+        Using the homography computed between these points (the same function I used above), I warped the image to correct the perspective, making the object appear rectangular. 
+        I tested this with three pairs of rectification images to ensure the homography and warping were working correctly.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_1_1.jpg" alt="Description of figure2_1">
+            <figcaption>[figure2_1_1] floor tiles original</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_1_2.jpg" alt="Description of figure2_2">
+            <figcaption>[figure2_1_2] floor tiles rectified</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_2_1.jpg" alt="Description of figure2_1">
+            <figcaption>[figure2_2_1] door on wall original</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_2_2.jpg" alt="Description of figure2_2">
+            <figcaption>[figure2_2_2] door on wall rectified</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_1.jpg" alt="Description of figure2_1">
+            <figcaption>[figure2_3_1] post on pole original</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure2_3_2.jpg" alt="Description of figure2_2">
+            <figcaption>[figure2_3_2] post on pole rectified</figcaption>
+        </figure>
+    </div>
+    
+
+    <h2 align="middle">Part 5: Blend the images into a mosaic</h2>
+    <p>
+        To blend the images into a mosaic, I warped the first image (im1) into the coordinate system of the 
+        second image (im2) using the homography matrix H. I computed the bounding box for the warped image to 
+        determine the size of the overall canvas, ensuring that both images fit. I then created an alpha mask for 
+        each image to handle blending. The alpha mask for the warped image was generated by mapping its pixels, and 
+        for the second image, I applied a mask with reduced weights near the edges to avoid sharp seams. Using the 
+        alpha masks, I computed feather weights that gradually decrease toward the edges of each image. Specifically, 
+        I calculated these weights by applying a distance transform to the alpha masks, which assigns higher weights 
+        to pixels farther from the edges. This approach allows for smooth blending by weighting pixel contributions 
+        based on their distance from the image boundaries. These weights were applied during the blending process 
+        to perform a weighted average of the two images at every pixel, resulting in a smooth transition between 
+        them. I used an accumulated weight matrix (weight_mosaic) to combine and normalize the feathered weights 
+        from both images, ensuring smooth blending in overlapping areas. Then, I displayed the feathered alpha 
+        masks and the resulting mosaic with smooth blending. (The source images are shown in Part 1)
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure3_5.png" alt="Description of figure2_1">
+            <figcaption>[figure3_5] alpha mask and feather weight for image01</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure3_6.png" alt="Description of figure2_1">
+            <figcaption>[figure3_6] alpha mask and feather weight for image02</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure3_1.jpg" alt="Description of figure2_1">
+            <figcaption>[figure3_1] landscape around Moffitt</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure3_2.jpg" alt="Description of figure2_1">
+            <figcaption>[figure3_2] interior of Wurster Hall</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure3_3.jpg" alt="Description of figure2_1">
+            <figcaption>[figure3_3] interior of Cory Hall</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure3_4.jpg" alt="Description of figure2_1">
+            <figcaption>[figure3_4] stairs inside Wurster Hall</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part B: Feature Matching for Autostitching</h2>
+    <h2 align="middle">Overview for Part B</h2>
+    <p>
+        Part B is for automatically detecting features, using algorithm to select corners(features), then blending the two images into a mosaic.
+    </p>
+    <h2 align="middle">Part 1: Detecting corner features in an image</h2>
+    <p>
+        For part 1, I used function get_harris_corners provided to find the corners on my original image, I set edge_discard=20.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure5_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure5_1] original image</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure5_2.jpg" alt="Description of figure1_2">
+            <figcaption>[figure5_2] corners on image with edge_discard=20</figcaption>
+        </figure>
+    </div>
+    <br>    
+
+    <h2 align="middle">Part 2: Extracting a Feature Descriptor for each feature point</h2>
+    <p>
+        For part 2, I used Adaptive Non-Maximal Suppression (ANMS) to reduce the number of corners,  ANMS selets corners based on the corner strength, to avoid having 
+        many corners within a small scope, ANMS used a circle with radius to find the strengthest corner within the circle-neighborhood, if a neighboor corner has more
+        strength than corner xi, then we choose corner xj. The general algorithm is 
+        \[
+        r_i = \min_{j} \| \vec{x}_i - \vec{x}_j \|, \quad \text{s.t.} \quad f(\vec{x}_i) &lt; c_{\text{robust}} f(\vec{x}_j), \quad \vec{x}_j \in \mathcal{I}
+        \]
+        for all corners, where \(\mathcal{I}\) is the set of detected corners.
+        <br>
+        After that, I blurred the whole image[figure6_2], and then sampled these patches from the larger 40x40 window to have a nice big blurred descriptor. Then I extracted 
+        axis-aligned 8x8 patches for each corners as feature descriptor. I also used bias/gain-normalize to normalize the descriptors. 
+        The figure6_3 shows the patches of three channles on the first corner after normalization.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure6_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure6_1] top 500 corners after ANMS</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure6_2.jpg" alt="Description of figure1_2">
+            <figcaption>[figure6_2] blurred whole original image</figcaption>
+        </figure>
+    </div>
+    <br>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure6_3.jpg" alt="Description of figure1_1">
+            <figcaption>[figure6_3] first set of patches with three channles</figcaption>
+        </figure>
+    </div>
+    <br>
+
+    <h2 align="middle">Part 3: Matching these feature descriptors between two images</h2>
+    <p>
+        To match the features on image01 and image02, I flattened the patch array as shape (# corners to get match, 64*3), and then I used dist2 to calculate the distance between 
+        image01 descriptor and image02 descriptor. And I selected the 1NN and 2NN using the smallest distance values. Then I used Lowe’s trick, setting threshold = 0.4, to select 
+        the most convincing matches on pairs of images.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure7_1.jpg" alt="Description of figure2_1">
+            <figcaption>[figure7_1] matches on pair of images</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part 4: Use a robust method (RANSAC) to compute a homography</h2>
+    <p>
+        Since the pairs of matches can not guarantee totally accurate, in this part, I used RANSAC to find the most accurate homography. Following the steps "# loop starts:
+        # 1. Select four feature pairs (at random)
+        # 2. Compute homography H (exact)
+        # 3. Compute                  
+        # loop ends
+        # 4. Keep largest set of inliers
+        # 5. Re-compute least-squares H estimate on all of the inliers", I found the homography on each pair of images, and then visulaized them.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure7_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure7_1] matches on pair of images before RANSAC</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure7_2.jpg" alt="Description of figure1_2">
+            <figcaption>[figure7_2] matches on pair of images after RANSAC</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure7_3.jpg" alt="Description of figure1_1">
+            <figcaption>[figure7_3] matches on pair of images before RANSAC</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure7_4.jpg" alt="Description of figure1_2">
+            <figcaption>[figure7_4] matches on pair of images after RANSAC</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure7_5.jpg" alt="Description of figure1_1">
+            <figcaption>[figure7_5] matches on pair of images before RANSAC</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure7_6.jpg" alt="Description of figure1_2">
+            <figcaption>[figure7_6] matches on pair of images after RANSAC</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure7_7.jpg" alt="Description of figure1_1">
+            <figcaption>[figure7_7] matches on pair of images before RANSAC</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure7_8.jpg" alt="Description of figure1_2">
+            <figcaption>[figure7_8] matches on pair of images after RANSAC</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure7_9.jpg" alt="Description of figure1_1">
+            <figcaption>[figure7_9] matches on pair of images before RANSAC</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure7_10.jpg" alt="Description of figure1_2">
+            <figcaption>[figure7_10] matches on pair of images after RANSAC</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part 5: Proceed as in the first part to produce a mosaic</h2>
+    <p>
+        For part 1, I took 4 pair of pictures, with fixing the center of projection (COP) and rotating my camera while capturing photos. 
+        Then I selected corresponding points on both images.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure3_1.jpg" alt="Description of figure1_1">
+            <figcaption>[figure3_1] landscape around Moffitt (manual)</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure8_1.jpg" alt="Description of figure1_2">
+            <figcaption>[figure8_1] landscape around Moffitt (automatically)</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure3_2.jpg" alt="Description of figure1_1">
+            <figcaption>[figure3_2] interior of Wurster Hall (manual)</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure8_2.jpg" alt="Description of figure1_2">
+            <figcaption>[figure8_2] interior of Wurster Hall (automatically)</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure3_3.jpg" alt="Description of figure1_1">
+            <figcaption>[figure3_3] interior of Cory Hall (manual)</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure8_3.jpg" alt="Description of figure1_2">
+            <figcaption>[figure8_3] interior of Cory Hall (automatically)</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure3_4.jpg" alt="Description of figure1_1">
+            <figcaption>[figure3_4] stairs inside Wurster Hall (manual)</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure8_4.jpg" alt="Description of figure1_2">
+            <figcaption>[figure8_4] stairs inside Wurster Hall (automatically)</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Reflection</h2>
+    <p>
+        In this project, I learned the algorithm of how to do automatical feature detecting, also I learned how to read a paper 
+        and how to reproduce the algorithm from the paper.
+    </p>
+
+
+    <h2 align="middle">Bells and Whistles 1</h2>
+    <p>
+        For part 1 of Bells and Whistles: my own ideas, I took pictures from daytime and night from the same point, 
+        then I mosaic these two images together.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/figure4_1.jpg" alt="Description of figure2_1">
+            <figcaption>[figure4_1] image taken at night</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/figure4_2.jpg" alt="Description of figure2_2">
+            <figcaption>[figure4_2] image taken at daytime</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/figure4_3.jpg" alt="Description of figure2_1">
+            <figcaption>[figure4_3] mosaic image from night to daytime</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Bells and Whistles 2</h2>
+    <p>
+        For part 2 of Bells and Whistles: video mosaics, I made a mosaic video of a corrider in Wurster Hall. The first two videos are 
+        the original videos, and the 3rd video is the mosaic video.
+    </p>
+    <br>
+    <div class="iframe-row">
+        <iframe width="315" height="560" 
+            src="https://www.youtube.com/embed/gNvIPF-0xn0" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+        <iframe width="315" height="560" 
+            src="https://www.youtube.com/embed/bd6iRfUGwW8" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+        <iframe width="315" height="560" 
+            src="https://youtube.com/embed/nIGVDDrOiLM"
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    
+</body>
+</html>
 
