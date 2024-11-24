@@ -188,9 +188,11 @@
         In part 1, I wrote my own "sampling loops" that use the pretrained DeepFloyd denoisers.
     </p>
     <h2 align="middle">Part 1.1: Implementing the Forward Process</h2>
-    <p>
-        I implemented the noisy_im = forward(im, t) function, and also noised the test image at noise level [250, 500, 750]. 
-        I used torch.randn_like() function to compute the noisy image, which is epsilon.
+    <p></p>
+        I implemented the forward(im, t) function, which generates a noisy image x_t by adding scaled Gaussian noise ϵ to a clean 
+        image x_0. The noise is generated using torch.randn_like(). I tested the function with the provided Campanile image at noise 
+        levels t=[250,500,750], progressively increasing the noise. The scaling factors sqrt(α_bar_t) and sqrt(1 - α_bar_t) were 
+        used to adjust the image and noise. The outputs showed a clear increase in noise as t increased.
     </p>
     <div class="image-row">
         <figure>
@@ -213,8 +215,9 @@
 
     <h2 align="middle">Part 1.2: Classical Denoising</h2>
     <p>
-        I used Gaussian blur filtering to try to remove the noise. I used torchvision.transforms.functional.gaussian_blur to get the Gaussian-denoised version 
-        images for the noisy test images correspondingly.
+        I applied Gaussian blur filtering to remove noise from the noisy images at t=[250,500,750]. Using torchvision.transforms.functional.gaussian_blur, I 
+        experimented with kernel sizes and sigma values to produce denoised images. While the Gaussian blur reduced high-frequency noise, the results demonstrated 
+        the limitations of classical filtering, as it was unable to fully recover the details of the original image.
     </p>
     <div class="image-row">
         <figure>
@@ -247,8 +250,10 @@
 
     <h2 align="middle">Part 1.3: One-Step Denoising</h2>
     <p>
-        I used the pretrained diffusion model (stage_1.unet) to denoise. I used stage_1.unet to recover Gaussian noise from the image, 
-        then remove the noise to recover the original image. The text prompt is set as "a high quality photo".
+        I utilized the pretrained diffusion model (stage_1.unet) to denoise the noisy images. The UNet predicted the noise ϵ, which I subtracted from the noisy 
+        image x_t to estimate the original clean image x_0. I adhered to the diffusion equation x_0 = (x_t - sqrt(α_bar_t)*ϵ)/sqrt(α_bar_t). The results for t=[250,500,750] 
+        demonstrated a significant improvement in recovering the image, highlighting the superiority of the diffusion model over classical methods. The text prompt 
+        "a high quality photo" was used for conditioning the UNet during denoising.
     </p>
     <div class="image-row">
         <figure>
