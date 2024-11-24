@@ -91,7 +91,11 @@
     </p>
     <h2 align="middle">Part 0: Setup</h2>
     <p>
-        For Part 0, I set the random seed to 180 to ensure consistent results across runs. Using the provided prompts — "an oil painting of a snowy mountain village," "a man wearing a hat," and "a rocket ship" — I sampled images from both stage 1 (64x64 resolution) and stage 2 (256x256 resolution). For each stage, I experimented with num_inference_steps set to 5, 20, and 40. The outputs demonstrated varying levels of detail and alignment with the prompts across inference steps, highlighting DeepFloyd's capabilities in producing high-quality, prompt-guided images.
+        For Part 0, I set the random seed to 180 to ensure consistent results across runs. Using the provided prompts — "an oil painting of a snowy mountain village," 
+        "a man wearing a hat," and "a rocket ship" — I sampled images from both stage 1 (64x64 resolution) and stage 2 (256x256 resolution). For each stage, I experimented with 
+        num_inference_steps set to 5, 20, and 40. The outputs demonstrated varying levels of detail and alignment with the prompts across inference steps, to be specific, 
+        with the increase of num_inference_steps value, the image are higher quality. Also, generally, the stage 2 output images are higher quality than the stage 1
+        output images.
     </p>
     <div class="image-row">
         <figure>
@@ -255,6 +259,12 @@
         demonstrated a significant improvement in recovering the image, highlighting the superiority of the diffusion model over classical methods. The text prompt 
         "a high quality photo" was used for conditioning the UNet during denoising.
     </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/Berkeley Campanile.png" alt="Description of figure1_1">
+            <figcaption>[original image]] Berkeley Campanile</figcaption>
+        </figure>
+    </div>
     <div class="image-row">
         <figure>
             <img class="image-medium-4" src="media/Noisy Campanile at t=250.png" alt="Description of figure1_2">
