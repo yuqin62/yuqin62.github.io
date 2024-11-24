@@ -59,6 +59,11 @@
         width: 130px;
         height: auto;
         }
+        .image-medium-7 {
+        margin: 1px;
+        width: 100px;
+        height: auto;
+        }
         .image-large {
             margin: 10px;
             width: 600px;
@@ -350,6 +355,106 @@
         <figure>
             <img class="image-medium-5" src="media/sample 5 with cfg.png" alt="Description of figure1_2">
             <figcaption>Sample 5 with CFG</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part 1.7: Image-to-image Translation</h2>
+    <p>
+        I implemented image-to-image translation using the pretrained diffusion model (stage_1.unet) and 
+        Classifier-Free Guidance (CFG). Starting with a slightly noisy image, the model iteratively denoised 
+        it to create "edits" that gradually resemble the original image. Using noise levels [1,3,5,7,10,20], 
+        I generated edits with the prompt "a high-quality photo."
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit00 i_start=1.png" alt="Description of figure1_1">
+            <figcaption>SDEdit with i_start=1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit00 i_start=3.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=3</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit00 i_start=5.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=5</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit00 i_start=7.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=7</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit00 i_start=10.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=10</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit00 i_start=20.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=20</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/test00.png" alt="Description of figure1_2">
+            <figcaption>Campanile</figcaption>
+        </figure>
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit01 i_start=1.png" alt="Description of figure1_1">
+            <figcaption>SDEdit with i_start=1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit01 i_start=3.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=3</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit01 i_start=5.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=5</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit01 i_start=7.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=7</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit01 i_start=10.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=10</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit01 i_start=20.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=20</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/test01.png" alt="Description of figure1_2">
+            <figcaption>Cube</figcaption>
+        </figure>
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit02 i_start=1.png" alt="Description of figure1_1">
+            <figcaption>SDEdit with i_start=1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit02 i_start=3.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=3</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit02 i_start=5.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=5</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit02 i_start=7.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=7</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit02 i_start=10.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=10</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/SDEdit02 i_start=20.png" alt="Description of figure1_2">
+            <figcaption>SDEdit with i_start=20</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/test02.png" alt="Description of figure1_2">
+            <figcaption>Playground</figcaption>
         </figure>
     </div>
 
