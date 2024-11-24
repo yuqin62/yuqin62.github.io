@@ -87,8 +87,7 @@
     </p>
     <h2 align="middle">Part 0: Setup</h2>
     <p>
-        For part 1, I set seed = 180. with fixing the center of projection (COP) and rotating my camera while capturing photos. 
-        Then I selected corresponding points on both images. I used num_inference_steps as 5 and 20.
+        For part 1, I set seed = 180, and used 3 prompts sampling from both stage 1 and stage 2. I also used num_inference_steps as 5 and 20.
     </p>
     <div class="image-row">
         <figure>
@@ -151,77 +150,32 @@
     </div>
     <br>
 
-    <h2 align="middle">Part 2: Recover Homographies</h2>
+    <h2 align="middle">Part 1: Sampling Loops</h2>
     <p>
-        The theory for recovering homographies is explained below:
+        In part 1, I wrote my own "sampling loops" that use the pretrained DeepFloyd denoisers.
     </p>
+    <h2 align="middle">Part 1.1: Implementing the Forward Process</h2>
     <p>
-        The transformation is a homography: \( q = Hp \), with \( q \) and \( h \) in homogeneous coordinates:
+        I implemented the noisy_im = forward(im, t) function, and also noised the test image at noise level [250, 500, 750]. 
+        I used torch.randn_like() function to compute the noisy image, which is epsilon.
     </p>
-    <div class="math">
-        \[
-        \begin{pmatrix}
-        wq_1 \\
-        wq_2 \\
-        w
-        \end{pmatrix}
-        =
-        \begin{pmatrix}
-        a & b & c \\
-        d & e & f \\
-        g & h & 1
-        \end{pmatrix}
-        \begin{pmatrix}
-        p_1 \\
-        p_2 \\
-        1
-        \end{pmatrix}
-        \]
-    </div>
-    <p>
-        This implies that \( w = g p_1 + h p_2 + 1 \). We can substitute to get the relations:
-    </p>
-    <div class="math">
-        \[
-        (g p_1 + h p_2 + 1) q_1 = a p_1 + b p_2 + c
-        \]
-        \[
-        (g p_1 + h p_2 + 1) q_2 = d p_1 + e p_2 + f
-        \]
-    </div>
-    <p>Or equivalently:</p>
-    <div class="math">
-        \[
-        g(p_1 q_1) + h(p_2 q_1) + q_1 = a p_1 + b p_2 + c
-        \]
-        \[
-        g(p_1 q_2) + h(p_2 q_2) + q_2 = d p_1 + e p_2 + f
-        \]
-    </div>
-    <p>Finally, stacking this into matrix form, we get:</p>
-    <div class="math">
-        \[
-        \begin{pmatrix}
-        p_1 & p_2 & 1 & 0 & 0 & 0 & -p_1 q_1 & -p_2 q_1 \\
-        0 & 0 & 0 & p_1 & p_2 & 1 & -p_1 q_2 & -p_2 q_2
-        \end{pmatrix}
-        \begin{pmatrix}
-        a \\
-        b \\
-        c \\
-        d \\
-        e \\
-        f \\
-        g \\
-        h
-        \end{pmatrix}
-        =
-        \begin{pmatrix}
-        q_1 \\
-        q_2
-        \end{pmatrix}
-        \]
-    <p>Generally, I used H = computeH(im1_pts,im2_pts) to compute the homography matrix from im1 warping to im2.</p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/Berkeley Campanile.png" alt="Description of figure1_1">
+            <figcaption>[test image] Berkeley Campanile</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/Noisy Campanile at t=250.png" alt="Description of figure1_2">
+            <figcaption>[test image at noise level] Noisy Campanile at t=250</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/Noisy Campanile at t=500.png" alt="Description of figure1_2">
+            <figcaption>[test image at noise level] Noisy Campanile at t=500</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/Noisy Campanile at t=750.png" alt="Description of figure1_2">
+            <figcaption>[test image at noise level] Noisy Campanile at t=750</figcaption>
+        </figure>
     </div>
     
     <h2 align="middle">Part 3: Warp the Images</h2>
