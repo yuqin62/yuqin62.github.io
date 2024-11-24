@@ -890,17 +890,17 @@
     <h2 align="middle">Part 2: Training a Diffusion Model</h2>
     <h2 align="middle">Part 2.1: Adding Time Conditioning to UNet</h2>
     <p>
-        I implemented a UNet-based architecture as the denoiser for the project. 
-        According to the instruction and images from website, the UNet features downsampling and upsampling blocks, 
-        enabling detailed reconstruction of noisy images. Key components include convolutional layers (Conv), 
-        pooling layers (Flatten/ Unflatten), and concatenation operations (Concat). The model uses BatchNorm for normalization 
-        and GELU as the activation function, with the hidden dimension set to 128 for the diffusion model's network.
+        In this part, I extended the UNet architecture from Part 1 by incorporating time-conditioning to predict noise at various timesteps t. This involved 
+        normalizing the scalar t to [0, 1] and embedding it into the network using FCBlock layers. These embeddings modulated key components like unflatten and 
+        upconv layers, enabling the UNet to adapt its outputs based on t. This adjustment allowed the model to handle noise with varying variance over time, 
+        making it suitable for iterative denoising. The rest of the UNet structure remained unchanged from Part 1.
     </p>
     <h2 align="middle">Part 2.2: Training the UNet</h2>
     <p>
-        In this part1.2, the goal was to train the UNet to map noisy images z=x+σϵ to clean images x. The training data consisted of 
-        clean MNIST images and their corresponding noisy versions generated with noise levels σ=0.5. The model was optimized with an L2 loss to 
-        minimize the reconstruction error. Noisy images were dynamically generated during training to enhance generalization.
+        Using the modified UNet, I trained the model on the MNIST dataset with random noise added dynamically across 300 timesteps t. For each training step, I 
+        generated noisy images x_t using the DDPM schedule and optimized the UNet to predict the noise ϵ. The Adam optimizer with an exponentially decaying 
+        learning rate ensured stable convergence across 20 epochs. By conditioning the UNet on t, the model learned to denoise images iteratively, effectively reversing the 
+        noising process. The time-conditioned UNet demonstrated robust performance in noise prediction, producing clean results from noisy inputs.
     </p>
     <div class="image-row">
         <figure>
@@ -911,9 +911,10 @@
 
     <h2 align="middle">Part 2.3: Sampling from the UNet</h2>
     <p>
-        The UNet was trained on the MNIST dataset for 5 epochs using a batch size of 256 and the Adam optimizer (learning rate 10^(−4)). Loss curves were 
-        tracked during training, and denoised outputs were visualized after the 1st and 5th epochs. Results demonstrated clear improvement in the model's ability to 
-        recover clean images, highlighting effective learning of denoising tasks.
+        In part2.3, I implemented the DDPM sampling process based on Algorithm B.2 to generate images from noise using the time-conditioned UNet. The process starts with a pure noise 
+        tensor x_T and iteratively refines it across T=300 timesteps using predicted noise ϵ_θ. By leveraging precomputed schedules for β, α, and α_bar, I combined low-variance predictions 
+        and stochastic noise at each step to compute x_{t-1}. The implementation allows for intermediate visualizations and outputs final clean images. Results were compared after 5 and 20 
+        training epochs, showcasing model progression.
     </p>
     <div class="image-row">
         <figure>
@@ -930,9 +931,10 @@
 
     <h2 align="middle">Part 2.4: Adding Class-Conditioning to UNet</h2>
     <p>
-        To evaluate robustness, the trained UNet was tested on MNIST images noised with varying σ values ([0.0,0.2,0.4,0.5,0.6,0.8,1.0]). The denoiser performed well for 
-        noise levels close to the training distribution (σ=0.5), with gradually reduced performance as noise deviated further. This testing highlighted the 
-        model's limitations and its adaptability to unseen noise levels.
+        In this part, I extended the UNet to include class-conditioning by introducing two additional FCBlock layers for the class vector c, which is encoded as a one-hot vector. 
+        During training, c is occasionally dropped (10% of the time) for unconditional generation. The model predicts noise 𝜖_𝜃(x_t, t, c), conditioned on both time t and class c. Loss 
+        computation aligns with Algorithm B.3, which incorporates dropout masking for c. Results were visualized with class-specific outputs and a training loss curve that demonstrated 
+        progressive improvement across epochs.
     </p>
     <div class="image-row">
         <figure>
@@ -942,9 +944,10 @@
     </div>
     <h2 align="middle">Part 2.5: Sampling from the Class-Conditioned UNet</h2>
     <p>
-        To evaluate robustness, the trained UNet was tested on MNIST images noised with varying σ values ([0.0,0.2,0.4,0.5,0.6,0.8,1.0]). The denoiser performed well for 
-        noise levels close to the training distribution (σ=0.5), with gradually reduced performance as noise deviated further. This testing highlighted the 
-        model's limitations and its adaptability to unseen noise levels.
+        In part2.5, the class-conditioned UNet was used to generate images based on specific digit classes (0-9) using classifier-free guidance. To enhance the quality of class-conditional results, a guidance 
+        scale γ=5.0 was applied. The model predicted the noise ϵ_θ(x_t,t,c), where t is the timestep and c is the class label. Sampling began with random noise (x_T∼N(0,I)), iteratively denoising it through T=300 steps 
+        using the guidance mechanism. Both unconditional (c=0) and conditional (c≠0) noise estimates were computed, and the final prediction combined these with the guidance scale. The output was clamped to [0, 1] for 
+        realistic results. Sampling visualizations included grids of digits, with 4 samples per class, after 5 and 20 epochs, showcasing improved generation quality over training.
     </p>
     <div class="image-row">
         <figure>
