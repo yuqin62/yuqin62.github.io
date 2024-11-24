@@ -295,6 +295,35 @@
         </figure>
     </div>
 
+    <h2 align="middle">Part 1.5: Diffusion Model Sampling</h2>
+    <p>
+        I used the pretrained diffusion model (stage_1.unet) to generate images from random noise. By setting i_start = 0 in the 
+        iterative_denoise function, the model denoised pure noise step by step. Five images were generated using the text prompt 
+        "a high quality photo" and displayed as results.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-5" src="media/sample 1.png" alt="Description of figure1_1">
+            <figcaption>Sample 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/sample 2.png" alt="Description of figure1_2">
+            <figcaption>Sample 2</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/sample 3png" alt="Description of figure1_2">
+            <figcaption>Sample 3</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/sample 4.png" alt="Description of figure1_2">
+            <figcaption>Sample 4</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/sample 5.png" alt="Description of figure1_2">
+            <figcaption>Sample 5</figcaption>
+        </figure>
+    </div>
+
     <h2 align="middle">Part 4: Image Rectification</h2>
     <p>
         For image rectification, I selected four corners of a rectangular object in the image (im1_pts) and defined the corresponding target points (im2_pts) as a perfect rectangle. 
