@@ -87,12 +87,11 @@
     <h2 align="middle">Part A: The Power of Diffusion Models</h2>
     <h2 align="middle">Overview for Part A</h2>
     <p>
-        Part A is for taking pictures, selecting corresponding points from the two images, then compute homography, warping im1 to im2, 
-        blending the two images into a mosaic.
+        Part A is for using pre-trained UNet, implementing diffusion sampling loops, and using them for other tasks such as inpainting and creating optical illusions.
     </p>
     <h2 align="middle">Part 0: Setup</h2>
     <p>
-        For part 1, I set seed = 180, and used 3 prompts sampling from both stage 1 and stage 2. I also used num_inference_steps as 5 and 20.
+        For Part 0, I set the random seed to 180 to ensure consistent results across runs. Using the provided prompts — "an oil painting of a snowy mountain village," "a man wearing a hat," and "a rocket ship" — I sampled images from both stage 1 (64x64 resolution) and stage 2 (256x256 resolution). For each stage, I experimented with num_inference_steps set to 5, 20, and 40. The outputs demonstrated varying levels of detail and alignment with the prompts across inference steps, highlighting DeepFloyd's capabilities in producing high-quality, prompt-guided images.
     </p>
     <div class="image-row">
         <figure>
@@ -919,7 +918,7 @@
     <div class="image-row">
         <figure>
             <img class="image-large" src="media/part2.3 epoch5.png" alt="Description of figure1_2">
-            <figcaption>[Time Conditioned] Epoch 1</figcaption>
+            <figcaption>[Time Conditioned] Epoch 5</figcaption>
         </figure>
     </div>
     <div class="image-row">
@@ -952,13 +951,13 @@
     <div class="image-row">
         <figure>
             <img class="image-large" src="media/part2.5 epoch=5.png" alt="Description of figure1_2">
-            <figcaption>[Class Conditioned] Epoch 1</figcaption>
+            <figcaption>[Class Conditioned] Epoch 5</figcaption>
         </figure>
     </div>
     <div class="image-row">
         <figure>
             <img class="image-large" src="media/part2.5 epoch=20.png" alt="Description of figure1_2">
-            <figcaption>[Class Conditioned] Epoch 1</figcaption>
+            <figcaption>[Class Conditioned] Epoch 20</figcaption>
         </figure>
     </div>
 
@@ -974,7 +973,7 @@
 
     <div class="image-row">
         <figure>
-            <img class="image-large" src="media/download (4).png" alt="Description of figure1_2">
+            <img class="image-medium-3" src="media/download (4).png" alt="Description of figure1_2">
             <figcaption>[Hybrid Image] A Man Sitting with A Dog around A Campfire</figcaption>
         </figure>
     </div>
