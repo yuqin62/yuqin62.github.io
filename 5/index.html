@@ -558,6 +558,170 @@
         </figure>
     </div>
 
+    <h2 align="middle">Part 1.7.2: Inpainting</h2>
+    <p>
+        I implemented inpainting using the pretrained diffusion model (stage_1.unet) with Classifier-Free Guidance (CFG), 
+        following the RePaint paper. Using a binary mask, I replaced parts of an image with new content while preserving the 
+        unmasked regions. The process iteratively added noise and denoised the image while respecting the mask constraints. 
+        The figures include the test image inpainted (with a given mask) and two additional images edited using corresponding masks.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-5" src="media/inpaint00.png" alt="Description of figure1_1">
+            <figcaption>Campanile</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/mask00.png" alt="Description of figure1_2">
+            <figcaption>Mask</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/hole to fill00.png" alt="Description of figure1_2">
+            <figcaption>Hole to Fill</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/inpainted00.png" alt="Description of figure1_2">
+            <figcaption>Campanile Inpainted</figcaption>
+        </figure>
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-5" src="media/inpaint01.png" alt="Description of figure1_1">
+            <figcaption>Cube</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/mask01.png" alt="Description of figure1_2">
+            <figcaption>Mask</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/hole to fill01.png" alt="Description of figure1_2">
+            <figcaption>Hole to Fill</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/inpainted01.png" alt="Description of figure1_2">
+            <figcaption>Cube Inpainted</figcaption>
+        </figure>
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-5" src="media/inpaint02.png" alt="Description of figure1_1">
+            <figcaption>Playground</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/mask02.png" alt="Description of figure1_2">
+            <figcaption>Mask</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/hole to fill02.png" alt="Description of figure1_2">
+            <figcaption>Hole to Fill</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/inpainted02.png" alt="Description of figure1_2">
+            <figcaption>Playground Inpainted</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part 1.7.3: Text-Conditional Image-to-image Translation</h2>
+    <p>
+        I used the pretrained diffusion model (stage_1.unet) with Classifier-Free Guidance (CFG) to transform non-realistic 
+        images, such as sketches and web images, into natural-looking images. Using the interaction tool provided, I edited 
+        one web image and two hand-drawn images by applying iterative denoising at noise levels [1,3,5,7,10,20]. The results 
+        demonstrate the model's ability to project creative edits onto the natural image manifold.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-7" src="media/rocket ship at noise level 1.png" alt="Description of figure1_1">
+            <figcaption>[rocket ship] rocket ship at noise level 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/rocket ship at noise level 3.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] rocket ship at noise level 3</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/rocket ship at noise level 5.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] rocket ship at noise level 5</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/rocket ship at noise level 7.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] rocket ship at noise level 7</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/rocket ship at noise level 10.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] rocket ship at noise level 10</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/rocket ship at noise level 20.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] rocket ship at noise level 20</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/test00.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] Campanile</figcaption>
+        </figure>
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-7" src="media/pencil at noise level 1.png" alt="Description of figure1_1">
+            <figcaption>[pencil] pencil at noise level 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/pencil at noise level 3.png" alt="Description of figure1_2">
+            <figcaption>[pencil] pencil at noise level 3</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/pencil at noise level 5.png" alt="Description of figure1_2">
+            <figcaption>[pencil] pencil at noise level 5</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/pencil at noise level 7.png" alt="Description of figure1_2">
+            <figcaption>[pencil] pencil at noise level 7</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/pencil at noise level 10.png" alt="Description of figure1_2">
+            <figcaption>[pencil] pencil at noise level 10</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/pencil at noise level 20.png" alt="Description of figure1_2">
+            <figcaption>[pencil] pencil at noise level 20</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/test00.png" alt="Description of figure1_2">
+            <figcaption>[pencil] Cube</figcaption>
+        </figure>
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-7" src="media/barista at noise level 1.png" alt="Description of figure1_1">
+            <figcaption>[rocket ship] barista at noise level 1</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/barista at noise level 3.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] barista at noise level 3</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/barista at noise level 5.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] barista at noise level 5</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/barista at noise level 7.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] barista at noise level 7</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/barista at noise level 10.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] barista at noise level 10</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/barista at noise level 20.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] barista at noise level 20</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-7" src="media/test02.png" alt="Description of figure1_2">
+            <figcaption>[rocket ship] Playground</figcaption>
+        </figure>
+    </div>
+
     <h2 align="middle">Part B: Feature Matching for Autostitching</h2>
     <h2 align="middle">Overview for Part B</h2>
     <p>
