@@ -932,8 +932,7 @@
     <p>
         In this part, I extended the UNet to include class-conditioning by introducing two additional FCBlock layers for the class vector c, which is encoded as a one-hot vector. 
         During training, c is occasionally dropped (10% of the time) for unconditional generation. The model predicts noise 𝜖_𝜃(x_t, t, c), conditioned on both time t and class c. Loss 
-        computation aligns with Algorithm B.3, which incorporates dropout masking for c. Results were visualized with class-specific outputs and a training loss curve that demonstrated 
-        progressive improvement across epochs.
+        computation aligns with Algorithm B.3, which incorporates dropout masking for c. The training loss curve demonstrated progressive improvement across epochs.
     </p>
     <div class="image-row">
         <figure>
