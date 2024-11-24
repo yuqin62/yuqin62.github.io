@@ -817,10 +817,75 @@
     </div>
 
     <h2 align="middle">Part B: Diffusion Models from Scratch</h2>
-    <h2 align="middle">Overview for Part A</h2>
+    <h2 align="middle">Overview for Part B</h2>
     <p>
         Part B is for implementing diffusion model and training on MNIST dataset.
     </p>
+    <h2 align="middle">Part 1: Training a Single-Step Denoising UNet</h2>
+    <h2 align="middle">Part 1.1: Implementing the UNet</h2>
+    <p>
+        I implemented a UNet-based architecture as the denoiser for the project. 
+        According to the instruction and images from website, the UNet features downsampling and upsampling blocks, 
+        enabling detailed reconstruction of noisy images. Key components include convolutional layers (Conv), 
+        pooling layers (Flatten/ Unflatten), and concatenation operations (Concat). The model uses BatchNorm for normalization 
+        and GELU as the activation function, with the hidden dimension set to 128 for the diffusion model's network.
+    </p>
+    <h2 align="middle">Part 1.2: Using the UNet to Train a Denoiser</h2>
+    <p>
+        In this part1.2, the goal was to train the UNet to map noisy images z=x+σϵ to clean images x. The training data consisted of 
+        clean MNIST images and their corresponding noisy versions generated with noise levels σ=0.5. The model was optimized with an L2 loss to 
+        minimize the reconstruction error. Noisy images were dynamically generated during training to enhance generalization.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part1 noisy image.png" alt="Description of figure1_2">
+            <figcaption>Varying levels of noise on MNIST digits</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part 1.2.1: Training</h2>
+    <p>
+        The UNet was trained on the MNIST dataset for 5 epochs using a batch size of 256 and the Adam optimizer (learning rate 10^(−4)). Loss curves were 
+        tracked during training, and denoised outputs were visualized after the 1st and 5th epochs. Results demonstrated clear improvement in the model's ability to 
+        recover clean images, highlighting effective learning of denoising tasks.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part1 training loss.png" alt="Description of figure1_2">
+            <figcaption>Training Loss Curve</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part1 epoch1.png" alt="Description of figure1_2">
+            <figcaption>Results on digits from the test set after 1 epoch of training</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part1 epoch5.png" alt="Description of figure1_2">
+            <figcaption>Results on digits from the test set after 5 epochs of training</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part 1.2.2: Out-of-Distribution Testing</h2>
+    <p>
+        To evaluate robustness, the trained UNet was tested on MNIST images noised with varying σ values ([0.0,0.2,0.4,0.5,0.6,0.8,1.0]). The denoiser performed well for 
+        noise levels close to the training distribution (σ=0.5), with gradually reduced performance as noise deviated further. This testing highlighted the 
+        model's limitations and its adaptability to unseen noise levels.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part1 same image1.png" alt="Description of figure1_2">
+            <figcaption> Results on digits from the test set with varying noise levels</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part1 same image2.png" alt="Description of figure1_2">
+            <figcaption> Results on digits from the test set with varying noise levels</figcaption>
+        </figure>
+    </div>
 
     <h2 align="middle">Reflection</h2>
     <p>
