@@ -763,206 +763,27 @@
         </figure>
     </div>
 
-    <h2 align="middle">Part B: Feature Matching for Autostitching</h2>
-    <h2 align="middle">Overview for Part B</h2>
+    <h2 align="middle">Part 1.9: Hybrid Images</h2>
     <p>
-        Part B is for automatically detecting features, using algorithm to select corners(features), then blending the two images into a mosaic.
-    </p>
-    <h2 align="middle">Part 1: Detecting corner features in an image</h2>
-    <p>
-        For part 1, I used function get_harris_corners provided to find the corners on my original image, I set edge_discard=20.
-    </p>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure5_1.jpg" alt="Description of figure1_1">
-            <figcaption>[figure5_1] original image</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure5_2.jpg" alt="Description of figure1_2">
-            <figcaption>[figure5_2] corners on image with edge_discard=20</figcaption>
-        </figure>
-    </div>
-    <br>    
-
-    <h2 align="middle">Part 2: Extracting a Feature Descriptor for each feature point</h2>
-    <p>
-        For part 2, I used Adaptive Non-Maximal Suppression (ANMS) to reduce the number of corners,  ANMS selets corners based on the corner strength, to avoid having 
-        many corners within a small scope, ANMS used a circle with radius to find the strengthest corner within the circle-neighborhood, if a neighboor corner has more
-        strength than corner xi, then we choose corner xj. The general algorithm is 
-        \[
-        r_i = \min_{j} \| \vec{x}_i - \vec{x}_j \|, \quad \text{s.t.} \quad f(\vec{x}_i) &lt; c_{\text{robust}} f(\vec{x}_j), \quad \vec{x}_j \in \mathcal{I}
-        \]
-        for all corners, where \(\mathcal{I}\) is the set of detected corners.
-        <br>
-        After that, I blurred the whole image[figure6_2], and then sampled these patches from the larger 40x40 window to have a nice big blurred descriptor. Then I extracted 
-        axis-aligned 8x8 patches for each corners as feature descriptor. I also used bias/gain-normalize to normalize the descriptors. 
-        The figure6_3 shows the patches of three channles on the first corner after normalization.
+        I implemented Hybrid Images using the pretrained diffusion model (stage_1.unet) with Classifier-Free Guidance (CFG). 
+        By combining noise estimates from two prompts—"a lithograph of a skull" and "a lithograph of waterfalls"—the model 
+        creates a composite noise estimate. Low frequencies from one noise estimate are blended with high frequencies from the 
+        other using a Gaussian blur (kernel size 33, sigma 2). The final hybrid image appears as a skull from afar and transforms 
+        into waterfalls when viewed up close. I also tried another two groups of prompts, which are "a pencil" with "a rocket ship" 
+        and "an oil painting of people around a campfire" with "a photo of a dog".
     </p>
     <div class="image-row">
         <figure>
-            <img class="image-medium-3" src="media/figure6_1.jpg" alt="Description of figure1_1">
-            <figcaption>[figure6_1] top 500 corners after ANMS</figcaption>
+            <img class="image-medium-3" src="media/download (3).png" alt="Description of figure1_1">
+            <figcaption>Hybrid image of a skull and a waterfall</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-3" src="media/figure6_2.jpg" alt="Description of figure1_2">
-            <figcaption>[figure6_2] blurred whole original image</figcaption>
-        </figure>
-    </div>
-    <br>
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/figure6_3.jpg" alt="Description of figure1_1">
-            <figcaption>[figure6_3] first set of patches with three channles</figcaption>
-        </figure>
-    </div>
-    <br>
-
-    <h2 align="middle">Part 3: Matching these feature descriptors between two images</h2>
-    <p>
-        To match the features on image01 and image02, I flattened the patch array as shape (# corners to get match, 64*3), and then I used dist2 to calculate the distance between 
-        image01 descriptor and image02 descriptor. And I selected the 1NN and 2NN using the smallest distance values. Then I used Lowe’s trick, setting threshold = 0.4, to select 
-        the most convincing matches on pairs of images.
-    </p>
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/figure7_1.jpg" alt="Description of figure2_1">
-            <figcaption>[figure7_1] matches on pair of images</figcaption>
-        </figure>
-    </div>
-
-    <h2 align="middle">Part 4: Use a robust method (RANSAC) to compute a homography</h2>
-    <p>
-        Since the pairs of matches can not guarantee totally accurate, in this part, I used RANSAC to find the most accurate homography. Following the steps "# loop starts:
-        # 1. Select four feature pairs (at random)
-        # 2. Compute homography H (exact)
-        # 3. Compute                  
-        # loop ends
-        # 4. Keep largest set of inliers
-        # 5. Re-compute least-squares H estimate on all of the inliers", I found the homography on each pair of images, and then visulaized them.
-    </p>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure7_1.jpg" alt="Description of figure1_1">
-            <figcaption>[figure7_1] matches on pair of images before RANSAC</figcaption>
+            <img class="image-medium-3" src="media/download (2).png" alt="Description of figure1_2">
+            <figcaption>Hybrid image of a rocket ship and a pencil</figcaption>
         </figure>
         <figure>
-            <img class="image-medium-3" src="media/figure7_2.jpg" alt="Description of figure1_2">
-            <figcaption>[figure7_2] matches on pair of images after RANSAC</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure7_3.jpg" alt="Description of figure1_1">
-            <figcaption>[figure7_3] matches on pair of images before RANSAC</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure7_4.jpg" alt="Description of figure1_2">
-            <figcaption>[figure7_4] matches on pair of images after RANSAC</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure7_5.jpg" alt="Description of figure1_1">
-            <figcaption>[figure7_5] matches on pair of images before RANSAC</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure7_6.jpg" alt="Description of figure1_2">
-            <figcaption>[figure7_6] matches on pair of images after RANSAC</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure7_7.jpg" alt="Description of figure1_1">
-            <figcaption>[figure7_7] matches on pair of images before RANSAC</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure7_8.jpg" alt="Description of figure1_2">
-            <figcaption>[figure7_8] matches on pair of images after RANSAC</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure7_9.jpg" alt="Description of figure1_1">
-            <figcaption>[figure7_9] matches on pair of images before RANSAC</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure7_10.jpg" alt="Description of figure1_2">
-            <figcaption>[figure7_10] matches on pair of images after RANSAC</figcaption>
-        </figure>
-    </div>
-
-    <h2 align="middle">Part 5: Proceed as in the first part to produce a mosaic</h2>
-    <p>
-        For part 1, I took 4 pair of pictures, with fixing the center of projection (COP) and rotating my camera while capturing photos. 
-        Then I selected corresponding points on both images.
-    </p>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure3_1.jpg" alt="Description of figure1_1">
-            <figcaption>[figure3_1] landscape around Moffitt (manual)</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure8_1.jpg" alt="Description of figure1_2">
-            <figcaption>[figure8_1] landscape around Moffitt (automatically)</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure3_2.jpg" alt="Description of figure1_1">
-            <figcaption>[figure3_2] interior of Wurster Hall (manual)</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure8_2.jpg" alt="Description of figure1_2">
-            <figcaption>[figure8_2] interior of Wurster Hall (automatically)</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure3_3.jpg" alt="Description of figure1_1">
-            <figcaption>[figure3_3] interior of Cory Hall (manual)</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure8_3.jpg" alt="Description of figure1_2">
-            <figcaption>[figure8_3] interior of Cory Hall (automatically)</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure3_4.jpg" alt="Description of figure1_1">
-            <figcaption>[figure3_4] stairs inside Wurster Hall (manual)</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure8_4.jpg" alt="Description of figure1_2">
-            <figcaption>[figure8_4] stairs inside Wurster Hall (automatically)</figcaption>
-        </figure>
-    </div>
-
-    <h2 align="middle">Reflection</h2>
-    <p>
-        In this project, I learned the algorithm of how to do automatical feature detecting, also I learned how to read a paper 
-        and how to reproduce the algorithm from the paper.
-    </p>
-
-
-    <h2 align="middle">Bells and Whistles 1</h2>
-    <p>
-        For part 1 of Bells and Whistles: my own ideas, I took pictures from daytime and night from the same point, 
-        then I mosaic these two images together.
-    </p>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/figure4_1.jpg" alt="Description of figure2_1">
-            <figcaption>[figure4_1] image taken at night</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/figure4_2.jpg" alt="Description of figure2_2">
-            <figcaption>[figure4_2] image taken at daytime</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-large" src="media/figure4_3.jpg" alt="Description of figure2_1">
-            <figcaption>[figure4_3] mosaic image from night to daytime</figcaption>
+            <img class="image-medium-3" src="media/download (1).png" alt="Description of figure1_2">
+            <figcaption>Hybrid image of an oil painting of people around a campfire and a dog</figcaption>
         </figure>
     </div>
 
@@ -970,6 +791,12 @@
     <h2 align="middle">Overview for Part A</h2>
     <p>
         Part B is for implementing diffusion model and training on MNIST dataset.
+    </p>
+
+    <h2 align="middle">Reflection</h2>
+    <p>
+        In this project, I learned the algorithm of how to do automatical feature detecting, also I learned how to read a paper 
+        and how to reproduce the algorithm from the paper.
     </p>
 
     <h2 align="middle">Bells and Whistles 1</h2>
