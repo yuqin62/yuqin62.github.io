@@ -726,36 +726,40 @@
 
     <h2 align="middle">Part 1.8: Visual Anagrams</h2>
     <p>
-        For part 1, I set seed = 180, and used 3 prompts sampling from both stage 1 and stage 2. I also used num_inference_steps as 5 and 20.
+        I implemented Visual Anagrams using the pretrained diffusion model (stage_1.unet) with Classifier-Free Guidance (CFG). 
+        The first group of outputs combines two noise estimates guided by different prompts: "an oil painting of an old man" and "an oil painting of people around a campfire". 
+        The second group of outputs combines two noise estimates guided by different prompts: "a photo of a hipster barista" and "an oil painting of an old man". 
+        The third group of outputs combines two noise estimates guided by different prompts: "a pencil" and "a man wearing a hat". 
+        By flipping the image and corresponding noise estimate, averaging the results, and denoising iteratively, the model generates an image that appears differently when flipped upside down.
     </p>
     <div class="image-row">
         <figure>
             <img class="image-medium-3" src="media/people around a campfire1.png" alt="Description of figure1_1">
-            <figcaption>An Oil Painting of an Old Man</figcaption>
+            <figcaption>[Prompt] An Oil Painting of an Old Man</figcaption>
         </figure>
         <figure>
             <img class="image-medium-3" src="media/people around a campfire2.png" alt="Description of figure1_2">
-            <figcaption>An Oil Painting of People around a Campfire</figcaption>
-        </figure>
-    </div>
-    <div class="image-row">
-        <figure>
-            <img class="image-medium-3" src="media/a pencil1.png" alt="Description of figure1_1">
-            <figcaption>A Pencil</figcaption>
-        </figure>
-        <figure>
-            <img class="image-medium-3" src="media/a pencil2.png" alt="Description of figure1_2">
-            <figcaption>A Man Wearing A Hat</figcaption>
+            <figcaption>[Prompt] An Oil Painting of People around a Campfire</figcaption>
         </figure>
     </div>
     <div class="image-row">
         <figure>
             <img class="image-medium-3" src="media/hipster barista1.png" alt="Description of figure1_1">
-            <figcaption>A Photo of A Hipster Barista</figcaption>
+            <figcaption>[Prompt] A Photo of A Hipster Barista</figcaption>
         </figure>
         <figure>
             <img class="image-medium-3" src="media/hipster barista2.png" alt="Description of figure1_2">
-            <figcaption>An Oil Painting of an Old Man</figcaption>
+            <figcaption>[Prompt] An Oil Painting of an Old Man</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-3" src="media/a pencil1.png" alt="Description of figure1_1">
+            <figcaption>[Prompt] A Pencil</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-3" src="media/a pencil2.png" alt="Description of figure1_2">
+            <figcaption>[Prompt] A Man Wearing A Hat</figcaption>
         </figure>
     </div>
 
