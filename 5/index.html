@@ -246,14 +246,54 @@
         </figure>
     </div>
     
-    <h2 align="middle">Part 3: Warp the Images</h2>
+    <h2 align="middle">Part 1.4: Iterative Denoising</h2>
     <p>
-        To warp the images, I used the homography matrix H to map the canvas coordinates back to the original image space. 
-        First, I created a canvas with dimensions based on the bounding box, then I computed the corresponding points in the 
-        original image by applying the inverse of H. Using RegularGridInterpolator, I interpolated the pixel values for the 
-        red, green, and blue channels separately. I then combined these channels to produce the final warped image and created 
-        an alpha mask to mark valid pixels in the result.
+        I implemented iterative denoising using the pretrained diffusion model (stage_1.unet). The process starts with a 
+        highly noisy image at timestep t, and noise is progressively removed step by step using a custom schedule (strided_timesteps). 
+        At each step, the model estimates the noise and reduces it, gradually recovering the original image. The text prompt is set as "a high quality photo." 
+        To optimize the process, I skipped timesteps using a stride of 30, reducing computational cost while maintaining quality. The results were compared 
+        to one-step denoising and Gaussian blur. Iterative denoising produced significantly cleaner images, demonstrating the model's ability to effectively handle high noise levels.
     </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-5" src="media/noisy campanile t=90.png" alt="Description of figure1_1">
+            <figcaption>Noisy Campanile at t=90</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/noisy campanile t=240.png" alt="Description of figure1_2">
+            <figcaption>Noisy Campanile at t=240</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/noisy campanile t=390.png" alt="Description of figure1_2">
+            <figcaption>Noisy Campanile at t=390</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/noisy campanile t=540.png" alt="Description of figure1_2">
+            <figcaption>Noisy Campanile at t=540</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-5" src="media/noisy campanile t=690.png" alt="Description of figure1_2">
+            <figcaption>Noisy Campanile at t=690</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-medium-4" src="media/Original.png" alt="Description of figure1_1">
+            <figcaption>Original</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/iteratively denoised campanile.png" alt="Description of figure1_2">
+            <figcaption>Iteratively Denoised Campanile</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/one-step denoised campanile.png" alt="Description of figure1_2">
+            <figcaption>One-Step Denoised Campanile</figcaption>
+        </figure>
+        <figure>
+            <img class="image-medium-4" src="media/gaussian blurred campanile.png" alt="Description of figure1_2">
+            <figcaption>Gaussian Blurred Campanile</figcaption>
+        </figure>
+    </div>
 
     <h2 align="middle">Part 4: Image Rectification</h2>
     <p>
