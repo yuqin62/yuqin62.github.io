@@ -887,17 +887,94 @@
         </figure>
     </div>
 
+    <h2 align="middle">Part 2: Training a Diffusion Model</h2>
+    <h2 align="middle">Part 2.1: Adding Time Conditioning to UNet</h2>
+    <p>
+        I implemented a UNet-based architecture as the denoiser for the project. 
+        According to the instruction and images from website, the UNet features downsampling and upsampling blocks, 
+        enabling detailed reconstruction of noisy images. Key components include convolutional layers (Conv), 
+        pooling layers (Flatten/ Unflatten), and concatenation operations (Concat). The model uses BatchNorm for normalization 
+        and GELU as the activation function, with the hidden dimension set to 128 for the diffusion model's network.
+    </p>
+    <h2 align="middle">Part 2.2: Training the UNet</h2>
+    <p>
+        In this part1.2, the goal was to train the UNet to map noisy images z=x+σϵ to clean images x. The training data consisted of 
+        clean MNIST images and their corresponding noisy versions generated with noise levels σ=0.5. The model was optimized with an L2 loss to 
+        minimize the reconstruction error. Noisy images were dynamically generated during training to enhance generalization.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part2.2 training loss curve.png" alt="Description of figure1_2">
+            <figcaption>Time-Conditioned UNet training loss curve</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part 2.3: Sampling from the UNet</h2>
+    <p>
+        The UNet was trained on the MNIST dataset for 5 epochs using a batch size of 256 and the Adam optimizer (learning rate 10^(−4)). Loss curves were 
+        tracked during training, and denoised outputs were visualized after the 1st and 5th epochs. Results demonstrated clear improvement in the model's ability to 
+        recover clean images, highlighting effective learning of denoising tasks.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part2.3 epoch5.png" alt="Description of figure1_2">
+            <figcaption>[Time Conditioned] Epoch 1</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part2.3 epoch20.png" alt="Description of figure1_2">
+            <figcaption>[Time Conditioned] Epoch 20</figcaption>
+        </figure>
+    </div>
+
+    <h2 align="middle">Part 2.4: Adding Class-Conditioning to UNet</h2>
+    <p>
+        To evaluate robustness, the trained UNet was tested on MNIST images noised with varying σ values ([0.0,0.2,0.4,0.5,0.6,0.8,1.0]). The denoiser performed well for 
+        noise levels close to the training distribution (σ=0.5), with gradually reduced performance as noise deviated further. This testing highlighted the 
+        model's limitations and its adaptability to unseen noise levels.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part2.4 training loss curve.png" alt="Description of figure1_2">
+            <figcaption>Class-conditioned UNet training loss curve</figcaption>
+        </figure>
+    </div>
+    <h2 align="middle">Part 2.5: Sampling from the Class-Conditioned UNet</h2>
+    <p>
+        To evaluate robustness, the trained UNet was tested on MNIST images noised with varying σ values ([0.0,0.2,0.4,0.5,0.6,0.8,1.0]). The denoiser performed well for 
+        noise levels close to the training distribution (σ=0.5), with gradually reduced performance as noise deviated further. This testing highlighted the 
+        model's limitations and its adaptability to unseen noise levels.
+    </p>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part2.5 epoch=5.png" alt="Description of figure1_2">
+            <figcaption>[Class Conditioned] Epoch 1</figcaption>
+        </figure>
+    </div>
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/part2.5 epoch=20.png" alt="Description of figure1_2">
+            <figcaption>[Class Conditioned] Epoch 1</figcaption>
+        </figure>
+    </div>
+
     <h2 align="middle">Reflection</h2>
     <p>
-        In this project, I learned the algorithm of how to do automatical feature detecting, also I learned how to read a paper 
-        and how to reproduce the algorithm from the paper.
+        In this project, I learned how to use and train a diffusion model, specifically how to add time conditioning and class conditioning to UNet.
     </p>
 
     <h2 align="middle">Bells and Whistles 1</h2>
     <p>
-        For part 2 of Bells and Whistles: video mosaics, I made a mosaic video of a corrider in Wurster Hall. The first two videos are 
-        the original videos, and the 3rd video is the mosaic video.
+        For part 2 of Bells and Whistles in PartA: Create something cool with what you learned in this project, I made a hybrid image of a man sitting with a dog around a campfire.
     </p>
+
+    <div class="image-row">
+        <figure>
+            <img class="image-large" src="media/download (4).png" alt="Description of figure1_2">
+            <figcaption>[Hybrid Image] A Man Sitting with A Dog around A Campfire</figcaption>
+        </figure>
+    </div>
     
 </body>
 </html>
