@@ -10,7 +10,7 @@
             text-align: center;
             padding: 20px;
             margin: auto;
-            max-width: 1450px;
+            max-width: 1000px;
             font-family: 'Source Sans Pro', sans-serif;
             background-color: #f9f9f9;
             color: #333;
@@ -37,23 +37,6 @@
             line-height: 1.6;
         }
 
-        .nav-bar {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            position: sticky;
-            top: 0;
-            width: 100%;
-            text-align: center;
-        }
-
-        .nav-bar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: 600;
-        }
-
         .section {
             margin: 40px 0;
         }
@@ -62,6 +45,15 @@
             width: 100%;
             max-width: 600px;
             height: 340px;
+            border: none;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .pdf-viewer, .video-viewer {
+            width: 90%; /* Wider viewer */
+            max-width: 800px;
+            height: 500px;
             border: none;
             margin: 20px auto;
             display: block;
@@ -135,16 +127,16 @@
         <p>Here are the generated videos showcasing the results:</p>
 
         <!-- Embed YouTube Videos -->
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/2q5HZz_KI58" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/VnBGBzMzT5Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/PLEATGW1QJM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/2q5HZz_KI58" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/VnBGBzMzT5Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/PLEATGW1QJM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <!-- Paper Section -->
     <div id="paper-section" class="section">
         <h2>Project Paper</h2>
         <p>The project paper is embedded below for direct viewing. You may also download it:</p>
-        <iframe src="media/280A_final_project.pdf" style="width: 100%; height: 80vh; border: none;"></iframe>
+        <iframe src="media/280A_final_project.pdf" class="pdf-viewer"></iframe>
         <!-- Download Link -->
         <a href="media/280A_final_project.pdf" class="download-link" target="_blank">Download Paper (PDF)</a>
     </div>
